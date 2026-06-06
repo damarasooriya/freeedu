@@ -11,18 +11,6 @@
       "duration": "18:05",
       "channel": "Exam Solutions",
       "addedAt": 1700100000000
-    },
-    {
-      "id": "sv_sample_4",
-      "source": "youtube",
-      "videoId": "jOAU81jdi-c",
-      "url": "https://www.youtube.com/watch?v=jOAU81jdi-c",
-      "title": "Organic Chemistry — Functional Groups",
-      "subject": "Chemistry",
-      "topic": "Organic Chemistry",
-      "duration": "25:18",
-      "channel": "ChemSimplified",
-      "addedAt": 1700300000000
     }
   ]
 }
