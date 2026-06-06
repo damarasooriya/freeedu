@@ -6,366 +6,293 @@
 <title>Admin — FreeEdu</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #080808;
-    --bg-surface: #111111;
-    --bg-card: #161616;
-    --bg-elevated: #1e1e1e;
-    --accent: #6366f1;
-    --accent-dim: rgba(99,102,241,0.15);
-    --accent-border: rgba(99,102,241,0.35);
-    --text-primary: #f0f0f0;
-    --text-secondary: #888888;
-    --text-muted: #555555;
-    --border: rgba(255,255,255,0.06);
-    --border-hover: rgba(255,255,255,0.12);
-    --success: #22c55e;
-    --success-dim: rgba(34,197,94,0.12);
-    --danger: #ef4444;
-    --danger-dim: rgba(239,68,68,0.1);
-    --telegram: #229ED9;
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --transition: 200ms ease;
+    --bg:#080808;--bg-surface:#111111;--bg-card:#161616;--bg-elevated:#1e1e1e;
+    --accent:#6366f1;--accent-dim:rgba(99,102,241,0.15);--accent-border:rgba(99,102,241,0.35);
+    --text-primary:#f0f0f0;--text-secondary:#888;--text-muted:#555;
+    --border:rgba(255,255,255,0.06);--border-hover:rgba(255,255,255,0.12);
+    --success:#22c55e;--success-dim:rgba(34,197,94,0.12);
+    --danger:#ef4444;--danger-dim:rgba(239,68,68,0.10);
+    --telegram:#229ED9;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+    --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--transition:200ms ease;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); min-height: 100vh; }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 99px; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);min-height:100vh;}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+  ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:99px;}
 
-  .nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(8,8,8,0.88);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 28px;
-    display: flex; align-items: center; gap: 14px;
+  /* ── LOGIN SCREEN ── */
+  .login-screen{
+    position:fixed;inset:0;z-index:9000;background:var(--bg);
+    display:flex;align-items:center;justify-content:center;padding:20px;
   }
-  .back-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: none; border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary); font-family: var(--font-body);
-    font-size: 13px; padding: 6px 12px; cursor: pointer;
-    text-decoration: none; transition: all var(--transition);
+  .login-box{
+    background:var(--bg-card);border:1px solid var(--border-hover);
+    border-radius:var(--radius-lg);width:100%;max-width:380px;padding:32px 28px;
   }
-  .back-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
-  .back-btn svg { width: 14px; height: 14px; }
-  .nav-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; }
-  .nav-title span { color: var(--accent); }
+  .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
+  .login-logo-icon{width:36px;height:36px;background:var(--accent);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;}
+  .login-logo-icon svg{width:18px;height:18px;color:#fff;}
+  .login-logo-text{font-family:var(--font-display);font-weight:700;font-size:17px;}
+  .login-logo-text span{color:var(--accent);}
+  .login-title{font-family:var(--font-display);font-size:19px;font-weight:700;margin-bottom:6px;}
+  .login-sub{font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.55;}
+  .login-sub a{color:var(--accent);text-decoration:none;}
+  .login-sub a:hover{text-decoration:underline;}
+  .login-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .login-label{font-size:12px;font-weight:500;color:var(--text-secondary);}
+  .login-input{
+    background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);
+    color:var(--text-primary);font-family:var(--font-body);font-size:14px;padding:10px 12px;
+    outline:none;transition:border-color var(--transition);width:100%;
+  }
+  .login-input:focus{border-color:var(--accent-border);}
+  .login-input::placeholder{color:var(--text-muted);}
+  .login-hint{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.5;}
+  .login-hint a{color:var(--accent);text-decoration:none;}
+  .login-hint a:hover{text-decoration:underline;}
+  .login-error{
+    display:none;align-items:center;gap:8px;padding:10px 12px;
+    background:var(--danger-dim);border:1px solid rgba(239,68,68,0.25);
+    border-radius:var(--radius-sm);font-size:13px;color:var(--danger);margin-bottom:12px;
+  }
+  .login-error.show{display:flex;}
+  .login-error svg{width:14px;height:14px;flex-shrink:0;}
+  .login-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    padding:11px;background:var(--accent);border:none;border-radius:var(--radius-md);
+    color:#fff;font-family:var(--font-body);font-size:14px;font-weight:600;
+    cursor:pointer;transition:background var(--transition),transform var(--transition);margin-top:6px;
+  }
+  .login-btn:hover{background:#5254cc;}
+  .login-btn:active{transform:scale(0.98);}
+  .login-btn svg{width:16px;height:16px;}
+  .login-divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+  .token-help-title{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;}
+  .token-steps{display:flex;flex-direction:column;gap:7px;}
+  .token-step{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-secondary);line-height:1.5;}
+  .step-num{min-width:18px;height:18px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--accent);flex-shrink:0;margin-top:1px;}
 
-  .admin-layout {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 0;
-    min-height: calc(100vh - 57px);
+  /* ── NAV ── */
+  .nav{
+    position:sticky;top:0;z-index:50;background:rgba(8,8,8,0.88);
+    backdrop-filter:blur(16px);border-bottom:1px solid var(--border);
+    padding:14px 28px;display:flex;align-items:center;gap:14px;
   }
+  .back-btn{
+    display:flex;align-items:center;gap:6px;background:none;
+    border:1px solid var(--border);border-radius:var(--radius-sm);
+    color:var(--text-secondary);font-family:var(--font-body);font-size:13px;
+    padding:6px 12px;cursor:pointer;text-decoration:none;transition:all var(--transition);
+  }
+  .back-btn:hover{border-color:var(--border-hover);color:var(--text-primary);}
+  .back-btn svg{width:14px;height:14px;}
+  .nav-title{font-family:var(--font-display);font-weight:700;font-size:16px;}
+  .nav-title span{color:var(--accent);}
+  .nav-session{
+    margin-left:auto;display:flex;align-items:center;gap:8px;
+    font-size:12px;color:var(--text-muted);
+  }
+  .session-dot{width:7px;height:7px;border-radius:50%;background:var(--success);}
+  .logout-btn{
+    display:flex;align-items:center;gap:5px;padding:5px 10px;
+    background:none;border:1px solid var(--border);border-radius:var(--radius-sm);
+    color:var(--text-muted);font-family:var(--font-body);font-size:12px;
+    cursor:pointer;transition:all var(--transition);
+  }
+  .logout-btn:hover{border-color:rgba(239,68,68,0.3);color:var(--danger);}
+  .logout-btn svg{width:13px;height:13px;}
 
-  /* LEFT: ADD FORM */
-  .form-panel {
-    background: var(--bg-surface);
-    border-right: 1px solid var(--border);
-    padding: 28px 24px;
-    position: sticky;
-    top: 57px;
-    height: calc(100vh - 57px);
-    overflow-y: auto;
-  }
+  /* ── LAYOUT ── */
+  .admin-layout{display:grid;grid-template-columns:400px 1fr;min-height:calc(100vh - 57px);}
 
-  .panel-title {
-    font-family: var(--font-display);
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .panel-title svg { width: 16px; height: 16px; color: var(--accent); }
+  /* ── FORM PANEL ── */
+  .form-panel{background:var(--bg-surface);border-right:1px solid var(--border);padding:28px 24px;position:sticky;top:57px;height:calc(100vh - 57px);overflow-y:auto;}
+  .panel-title{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+  .panel-title svg{width:16px;height:16px;color:var(--accent);}
 
-  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-  .form-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.3px; }
-  .form-label .req { color: var(--accent); margin-left: 2px; }
+  .source-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+  .source-option{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;transition:all var(--transition);color:var(--text-secondary);}
+  .source-option.yt.selected{background:rgba(255,0,0,0.12);border-color:rgba(255,0,0,0.4);color:#ff4444;}
+  .source-option.tg.selected{background:rgba(34,158,217,0.12);border-color:rgba(34,158,217,0.4);color:var(--telegram);}
+  .source-option svg{width:14px;height:14px;}
 
-  .form-input, .form-select, .form-textarea {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 13.5px;
-    padding: 9px 12px;
-    outline: none;
-    transition: border-color var(--transition);
-    width: 100%;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent-border); }
-  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
-  .form-textarea { resize: vertical; min-height: 60px; }
-  .form-select option { background: var(--bg-elevated); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .form-label{font-size:12px;font-weight:500;color:var(--text-secondary);letter-spacing:0.3px;}
+  .form-label .req{color:var(--accent);margin-left:2px;}
+  .form-input,.form-select{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:var(--font-body);font-size:13.5px;padding:9px 12px;outline:none;transition:border-color var(--transition);width:100%;}
+  .form-input:focus,.form-select:focus{border-color:var(--accent-border);}
+  .form-input::placeholder{color:var(--text-muted);}
+  .form-select option{background:var(--bg-elevated);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .form-row .form-group{margin-bottom:0;}
+  .url-hint{font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.5;}
 
-  .source-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-  .source-option {
-    display: flex; align-items: center; justify-content: center; gap: 7px;
-    padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm);
-    cursor: pointer; font-size: 13px; font-weight: 500; transition: all var(--transition);
-    color: var(--text-secondary);
-  }
-  .source-option.yt.selected { background: rgba(255,0,0,0.12); border-color: rgba(255,0,0,0.4); color: #ff4444; }
-  .source-option.tg.selected { background: rgba(34,158,217,0.12); border-color: rgba(34,158,217,0.4); color: var(--telegram); }
-  .source-option svg { width: 14px; height: 14px; }
+  .add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--accent);border:none;border-radius:var(--radius-md);color:#fff;font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;transition:background var(--transition),transform var(--transition);margin-top:6px;}
+  .add-btn:hover{background:#5254cc;}
+  .add-btn:active{transform:scale(0.98);}
+  .add-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+  .add-btn svg{width:16px;height:16px;}
 
-  .url-hint {
-    font-size: 11px; color: var(--text-muted);
-    margin-top: 3px; line-height: 1.5;
-  }
+  .saving-indicator{display:none;align-items:center;gap:8px;padding:10px 14px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:var(--radius-sm);font-size:13px;color:var(--accent);margin-top:10px;}
+  .saving-indicator.show{display:flex;}
+  .mini-spinner{width:14px;height:14px;border:2px solid rgba(99,102,241,0.3);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+  @keyframes spin{to{transform:rotate(360deg);}}
 
-  .add-btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 12px;
-    background: var(--accent); border: none; border-radius: var(--radius-md);
-    color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: background var(--transition), transform var(--transition);
-    margin-top: 6px;
-  }
-  .add-btn:hover { background: #5254cc; }
-  .add-btn:active { transform: scale(0.98); }
-  .add-btn svg { width: 16px; height: 16px; }
+  .divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+  .section-title{font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+  .import-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .import-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-secondary);font-family:var(--font-body);font-size:12px;font-weight:500;cursor:pointer;transition:all var(--transition);}
+  .import-btn:hover{border-color:var(--border-hover);color:var(--text-primary);}
+  .import-btn.danger{color:var(--danger);}
+  .import-btn.danger:hover{background:var(--danger-dim);border-color:rgba(239,68,68,0.3);}
+  .import-btn svg{width:13px;height:13px;}
 
-  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  /* ── LIST PANEL ── */
+  .list-panel{padding:28px 24px;}
+  .list-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap;}
+  .list-panel-title{font-family:var(--font-display);font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .list-panel-title svg{width:16px;height:16px;color:var(--accent);}
+  .count-badge{background:var(--accent-dim);color:var(--accent);font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;}
+  .search-filter-row{display:flex;gap:10px;flex:1;flex-wrap:wrap;}
+  .list-search-wrap{position:relative;flex:1;min-width:180px;}
+  .list-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
+  .list-search-icon svg{width:13px;height:13px;}
+  .list-search{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:var(--font-body);font-size:13px;padding:7px 10px 7px 30px;outline:none;transition:border-color var(--transition);}
+  .list-search:focus{border-color:var(--accent-border);}
+  .list-search::placeholder{color:var(--text-muted);}
+  .filter-select{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-secondary);font-family:var(--font-body);font-size:13px;padding:7px 10px;outline:none;cursor:pointer;}
 
-  /* ── BULK IMPORT ── */
-  .import-section {}
-  .import-title {
-    font-size: 12px; font-weight: 600; letter-spacing: 0.8px;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
-  }
-  .import-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .import-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 7px 12px;
-    background: var(--bg-elevated); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); color: var(--text-secondary);
-    font-family: var(--font-body); font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: all var(--transition);
-  }
-  .import-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
-  .import-btn svg { width: 13px; height: 13px; }
-  .import-btn.danger { color: var(--danger); }
-  .import-btn.danger:hover { background: var(--danger-dim); border-color: rgba(239,68,68,0.3); }
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:20px;}
+  .stat-mini{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;text-align:center;}
+  .stat-mini-val{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1;}
+  .stat-mini-lbl{font-size:11px;color:var(--text-muted);margin-top:3px;}
 
-  /* RIGHT: VIDEO LIST */
-  .list-panel { padding: 28px 24px; }
+  .video-table{width:100%;border-collapse:collapse;}
+  .video-table th{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  .video-table td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle;font-size:13px;}
+  .video-table tr:last-child td{border-bottom:none;}
+  .video-table tr:hover td{background:rgba(255,255,255,0.02);}
 
-  .list-header {
-    display: flex; align-items: center; gap: 14px;
-    margin-bottom: 20px; flex-wrap: wrap;
-  }
-  .list-panel-title {
-    font-family: var(--font-display);
-    font-size: 15px; font-weight: 700;
-    color: var(--text-primary);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .list-panel-title svg { width: 16px; height: 16px; color: var(--accent); }
+  .td-thumb{width:72px;min-width:72px;aspect-ratio:16/9;background:var(--bg-elevated);border-radius:6px;overflow:hidden;}
+  .td-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .td-thumb-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+  .td-thumb-ph svg{width:14px;height:14px;color:var(--text-muted);}
+  .td-title{font-weight:500;color:var(--text-primary);line-height:1.4;}
+  .td-title small{display:block;font-size:11px;color:var(--text-muted);font-weight:400;margin-top:2px;}
+  .source-dot{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;}
+  .source-dot.youtube{background:rgba(255,0,0,0.12);color:#ff4444;}
+  .source-dot.telegram{background:rgba(34,158,217,0.12);color:var(--telegram);}
+  .source-dot svg{width:10px;height:10px;}
+  .td-actions{display:flex;gap:6px;align-items:center;}
+  .action-btn{background:none;border:1px solid transparent;border-radius:6px;cursor:pointer;padding:5px 8px;font-family:var(--font-body);font-size:12px;display:flex;align-items:center;gap:4px;transition:all var(--transition);color:var(--text-muted);}
+  .action-btn svg{width:13px;height:13px;}
+  .action-btn.edit-btn:hover{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent);}
+  .action-btn.del-btn:hover{background:var(--danger-dim);border-color:rgba(239,68,68,0.3);color:var(--danger);}
 
-  .count-badge {
-    background: var(--accent-dim); color: var(--accent);
-    font-size: 11px; font-weight: 700;
-    padding: 2px 8px; border-radius: 99px;
-    letter-spacing: 0.3px;
-  }
+  .empty-list{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;gap:10px;}
+  .empty-list svg{width:40px;height:40px;color:var(--text-muted);}
+  .empty-list p{font-size:14px;color:var(--text-muted);}
 
-  .search-filter-row { display: flex; gap: 10px; flex: 1; flex-wrap: wrap; }
-  .list-search-wrap { position: relative; flex: 1; min-width: 200px; }
-  .list-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-  .list-search-icon svg { width: 13px; height: 13px; }
-  .list-search {
-    width: 100%; background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); color: var(--text-primary);
-    font-family: var(--font-body); font-size: 13px;
-    padding: 7px 10px 7px 30px; outline: none;
-    transition: border-color var(--transition);
-  }
-  .list-search:focus { border-color: var(--accent-border); }
-  .list-search::placeholder { color: var(--text-muted); }
-  .filter-select {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); color: var(--text-secondary);
-    font-family: var(--font-body); font-size: 13px; padding: 7px 10px;
-    outline: none; cursor: pointer;
-  }
+  /* ── EDIT MODAL ── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 250ms ease;}
+  .modal-overlay.open{opacity:1;pointer-events:all;}
+  .modal{background:var(--bg-card);border:1px solid var(--border-hover);border-radius:var(--radius-lg);width:100%;max-width:480px;max-height:85vh;overflow-y:auto;transform:scale(0.95);transition:transform 250ms ease;}
+  .modal-overlay.open .modal{transform:scale(1);}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg-card);z-index:1;}
+  .modal-header h2{font-family:var(--font-display);font-size:15px;font-weight:700;}
+  .close-btn{background:var(--bg-elevated);border:1px solid var(--border);border-radius:6px;color:var(--text-secondary);cursor:pointer;padding:5px;transition:all var(--transition);}
+  .close-btn:hover{background:rgba(255,255,255,0.08);color:var(--text-primary);}
+  .close-btn svg{width:15px;height:15px;display:block;}
+  .modal-body{padding:20px;display:flex;flex-direction:column;gap:14px;}
+  .save-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;background:var(--accent);border:none;border-radius:var(--radius-md);color:#fff;font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;transition:background var(--transition);}
+  .save-btn:hover{background:#5254cc;}
+  .save-btn:disabled{opacity:0.5;cursor:not-allowed;}
+  .save-btn svg{width:15px;height:15px;}
 
-  .video-table { width: 100%; border-collapse: collapse; }
-  .video-table th {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
-    text-transform: uppercase; color: var(--text-muted);
-    text-align: left; padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
-  .video-table td {
-    padding: 12px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-    font-size: 13px;
-  }
-  .video-table tr:last-child td { border-bottom: none; }
-  .video-table tr:hover td { background: rgba(255,255,255,0.02); }
+  /* ── TOAST ── */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--bg-elevated);border:1px solid var(--border-hover);border-radius:var(--radius-md);padding:10px 18px;font-size:13px;font-weight:500;color:var(--text-primary);z-index:9999;display:flex;align-items:center;gap:8px;transition:transform 300ms ease,opacity 300ms ease;opacity:0;pointer-events:none;}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  .toast.success{border-color:rgba(34,197,94,0.4);}
+  .toast.success svg{color:var(--success);}
+  .toast svg{width:15px;height:15px;flex-shrink:0;}
 
-  .td-thumb {
-    width: 72px; min-width: 72px;
-    aspect-ratio: 16/9;
-    background: var(--bg-elevated);
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-  }
-  .td-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .td-thumb-ph {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .td-thumb-ph svg { width: 14px; height: 14px; color: var(--text-muted); }
-
-  .td-title { font-weight: 500; color: var(--text-primary); line-height: 1.4; }
-  .td-title small { display: block; font-size: 11px; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
-
-  .source-dot {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 11px; font-weight: 700; padding: 2px 8px;
-    border-radius: 99px;
-  }
-  .source-dot.youtube { background: rgba(255,0,0,0.12); color: #ff4444; }
-  .source-dot.telegram { background: rgba(34,158,217,0.12); color: var(--telegram); }
-  .source-dot svg { width: 10px; height: 10px; }
-
-  .td-actions { display: flex; gap: 6px; align-items: center; }
-  .action-btn {
-    background: none; border: 1px solid transparent;
-    border-radius: 6px; cursor: pointer; padding: 5px 8px;
-    font-family: var(--font-body); font-size: 12px;
-    display: flex; align-items: center; gap: 4px;
-    transition: all var(--transition); color: var(--text-muted);
-  }
-  .action-btn svg { width: 13px; height: 13px; }
-  .action-btn.edit-btn:hover { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
-  .action-btn.del-btn:hover { background: var(--danger-dim); border-color: rgba(239,68,68,0.3); color: var(--danger); }
-
-  .empty-list {
-    display: flex; flex-direction: column; align-items: center;
-    justify-content: center; padding: 60px 20px; text-align: center; gap: 10px;
-  }
-  .empty-list svg { width: 40px; height: 40px; color: var(--text-muted); }
-  .empty-list p { font-size: 14px; color: var(--text-muted); }
-
-  /* EDIT MODAL */
-  .edit-modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px;
-    opacity: 0; pointer-events: none;
-    transition: opacity 250ms ease;
-  }
-  .edit-modal-overlay.open { opacity: 1; pointer-events: all; }
-  .edit-modal {
-    background: var(--bg-card);
-    border: 1px solid var(--border-hover);
-    border-radius: var(--radius-lg);
-    width: 100%; max-width: 480px;
-    max-height: 85vh; overflow-y: auto;
-    transform: scale(0.95); transition: transform 250ms ease;
-  }
-  .edit-modal-overlay.open .edit-modal { transform: scale(1); }
-  .edit-modal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 20px 14px;
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; background: var(--bg-card); z-index: 1;
-  }
-  .edit-modal-header h2 { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
-  .close-btn {
-    background: var(--bg-elevated); border: 1px solid var(--border);
-    border-radius: 6px; color: var(--text-secondary); cursor: pointer; padding: 5px;
-    transition: all var(--transition);
-  }
-  .close-btn:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
-  .close-btn svg { width: 15px; height: 15px; display: block; }
-  .edit-modal-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-  .save-btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 11px;
-    background: var(--accent); border: none; border-radius: var(--radius-md);
-    color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: background var(--transition);
-    margin-top: 4px;
-  }
-  .save-btn:hover { background: #5254cc; }
-  .save-btn svg { width: 15px; height: 15px; }
-
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%;
-    transform: translateX(-50%) translateY(60px);
-    background: var(--bg-elevated); border: 1px solid var(--border-hover);
-    border-radius: var(--radius-md); padding: 10px 18px;
-    font-size: 13px; font-weight: 500; color: var(--text-primary);
-    z-index: 9999; display: flex; align-items: center; gap: 8px;
-    transition: transform 300ms ease, opacity 300ms ease;
-    opacity: 0; pointer-events: none;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .toast.success { border-color: rgba(34,197,94,0.4); }
-  .toast svg { width: 15px; height: 15px; }
-  .toast.success svg { color: var(--success); }
-
-  /* STATS */
-  .stats-row {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px; margin-bottom: 20px;
-  }
-  .stat-mini {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 12px 14px;
-    text-align: center;
-  }
-  .stat-mini-val {
-    font-family: var(--font-display); font-size: 22px; font-weight: 700;
-    color: var(--text-primary); line-height: 1;
-  }
-  .stat-mini-lbl { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-
-  @media (max-width: 900px) {
-    .admin-layout { grid-template-columns: 1fr; }
-    .form-panel { position: static; height: auto; }
-    .nav { padding: 12px 16px; }
-    .form-panel, .list-panel { padding: 20px 16px; }
-    .form-row { grid-template-columns: 1fr; }
+  @media(max-width:900px){
+    .admin-layout{grid-template-columns:1fr;}
+    .form-panel{position:static;height:auto;}
+    .nav{padding:12px 16px;}
+    .form-panel,.list-panel{padding:20px 16px;}
+    .form-row{grid-template-columns:1fr;}
   }
 </style>
 </head>
 <body>
 
+<!-- ══════════════════ LOGIN SCREEN ══════════════════ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <span class="login-logo-text">Free<span>Edu</span> Admin</span>
+    </div>
+    <h1 class="login-title">Admin Login</h1>
+    <p class="login-sub">Enter your password and GitHub token to manage the video library. Your token is only kept for this session and forgotten when you close the tab.</p>
+
+    <div class="login-error" id="loginError">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+      <span id="loginErrorMsg">Incorrect password.</span>
+    </div>
+
+    <div class="login-field">
+      <label class="login-label">Admin Password</label>
+      <input class="login-input" type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+
+    <div class="login-field">
+      <label class="login-label">GitHub Personal Access Token</label>
+      <input class="login-input" type="password" id="loginToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
+      <span class="login-hint">Your token needs <strong>Contents: Read & Write</strong> permission. <a href="#tokenHelp" onclick="document.getElementById('tokenHelp').scrollIntoView({behavior:'smooth'});return false;">See steps below →</a></span>
+    </div>
+
+    <button class="login-btn" onclick="doLogin()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10,17 15,12 10,7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Enter Admin Panel
+    </button>
+
+    <hr class="login-divider" id="tokenHelp">
+    <div class="token-help-title">How to get your GitHub Token</div>
+    <div class="token-steps">
+      <div class="token-step"><span class="step-num">1</span>Go to <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener" style="color:var(--accent)">github.com/settings/tokens</a> — choose <strong>Fine-grained tokens</strong></div>
+      <div class="token-step"><span class="step-num">2</span>Click <strong>Generate new token</strong></div>
+      <div class="token-step"><span class="step-num">3</span>Give it a name, e.g. <em>freeedu-admin</em></div>
+      <div class="token-step"><span class="step-num">4</span>Under <strong>Repository access</strong> → select <strong>Only select repositories</strong> → choose <strong>freeedu</strong></div>
+      <div class="token-step"><span class="step-num">5</span>Under <strong>Permissions → Repository permissions</strong> → set <strong>Contents</strong> to <strong>Read and write</strong></div>
+      <div class="token-step"><span class="step-num">6</span>Click <strong>Generate token</strong> → copy it and paste above</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ADMIN APP ══════════════════ -->
+<div id="adminApp" style="display:none">
+
 <nav class="nav">
   <a class="back-btn" href="index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12,19 5,12 12,5"/></svg>
     Back to Library
   </a>
-  <span class="nav-title">Study<span>Vault</span> — Admin</span>
+  <span class="nav-title">Free<span>Edu</span> — Admin</span>
+  <div class="nav-session">
+    <span class="session-dot"></span>
+    <span>Session active</span>
+    <button class="logout-btn" onclick="doLogout()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </button>
+  </div>
 </nav>
 
 <div class="admin-layout">
@@ -373,9 +300,7 @@
   <!-- LEFT: ADD FORM -->
   <div class="form-panel">
     <div class="panel-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
       Add New Video
     </div>
 
@@ -393,7 +318,7 @@
     <div class="form-group">
       <label class="form-label" id="urlLabel">YouTube URL or Video ID <span class="req">*</span></label>
       <input class="form-input" type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=..." autocomplete="off">
-      <span class="url-hint" id="urlHint">Supports: youtube.com/watch?v=..., youtu.be/..., or just the 11-char video ID</span>
+      <span class="url-hint" id="urlHint">Supports full URL, youtu.be/..., or just the 11-char video ID</span>
     </div>
 
     <div class="form-group">
@@ -424,53 +349,47 @@
       </div>
     </div>
 
-    <button class="add-btn" onclick="addVideo()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
-      </svg>
+    <button class="add-btn" id="addBtn" onclick="addVideo()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
       Add Video to Library
     </button>
-
-    <hr class="divider">
-
-    <div class="import-section">
-      <div class="import-title">Data Management</div>
-      <div class="import-actions">
-        <button class="import-btn" onclick="exportData()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export JSON
-        </button>
-        <label class="import-btn" style="cursor:pointer;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Import JSON
-          <input type="file" accept=".json" id="importFile" style="display:none" onchange="importData(event)">
-        </label>
-        <button class="import-btn danger" onclick="clearAll()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14H6L5,6"/><path d="M10,11v6M14,11v6"/><path d="M9,6V4h6v2"/></svg>
-          Clear All
-        </button>
-      </div>
+    <div class="saving-indicator" id="savingIndicator">
+      <div class="mini-spinner"></div>
+      Saving to GitHub…
     </div>
 
+    <hr class="divider">
+    <div class="section-title">Data Management</div>
+    <div class="import-actions">
+      <button class="import-btn" onclick="exportData()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export JSON
+      </button>
+      <label class="import-btn" style="cursor:pointer;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import JSON
+        <input type="file" accept=".json" id="importFile" style="display:none" onchange="importData(event)">
+      </label>
+      <button class="import-btn danger" onclick="clearAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14H6L5,6"/><path d="M10,11v6M14,11v6"/><path d="M9,6V4h6v2"/></svg>
+        Clear All
+      </button>
+    </div>
   </div>
 
   <!-- RIGHT: VIDEO LIST -->
   <div class="list-panel">
-
     <div class="stats-row" id="statsRow"></div>
-
     <div class="list-header">
       <div class="list-panel-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         Video Library
         <span class="count-badge" id="countBadge">0</span>
       </div>
       <div class="search-filter-row">
         <div class="list-search-wrap">
           <span class="list-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-          <input class="list-search" type="search" id="listSearch" placeholder="Search titles, subjects…" oninput="renderTable()">
+          <input class="list-search" type="search" id="listSearch" placeholder="Search titles…" oninput="renderTable()">
         </div>
         <select class="filter-select" id="subjectFilter" onchange="renderTable()">
           <option value="all">All subjects</option>
@@ -487,63 +406,40 @@
       <table class="video-table">
         <thead>
           <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Subject</th>
-            <th>Source</th>
-            <th>Duration</th>
-            <th>Added</th>
-            <th></th>
+            <th></th><th>Title</th><th>Subject</th><th>Source</th><th>Duration</th><th>Added</th><th></th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
       </table>
       <div id="emptyState" class="empty-list" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <p>No videos match your search or filters.</p>
+        <p>No videos found.</p>
       </div>
     </div>
-
   </div>
 </div>
 
+</div><!-- end adminApp -->
+
 <!-- EDIT MODAL -->
-<div class="edit-modal-overlay" id="editModal" onclick="handleEditModalClick(event)">
-  <div class="edit-modal" id="editModalInner">
-    <div class="edit-modal-header">
+<div class="modal-overlay" id="editModal" onclick="handleEditClick(event)">
+  <div class="modal">
+    <div class="modal-header">
       <h2>Edit Video</h2>
-      <button class="close-btn" onclick="closeEditModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="close-btn" onclick="closeEdit()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
-    <div class="edit-modal-body">
+    <div class="modal-body">
       <input type="hidden" id="editId">
-      <div class="form-group">
-        <label class="form-label">Title</label>
-        <input class="form-input" type="text" id="editTitle" autocomplete="off">
+      <div class="form-group"><label class="form-label">Title</label><input class="form-input" type="text" id="editTitle" autocomplete="off"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Subject</label><input class="form-input" type="text" id="editSubject" list="editSubjectList" autocomplete="off"><datalist id="editSubjectList"></datalist></div>
+        <div class="form-group"><label class="form-label">Topic</label><input class="form-input" type="text" id="editTopic" autocomplete="off"></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Subject</label>
-          <input class="form-input" type="text" id="editSubject" list="editSubjectSuggestions" autocomplete="off">
-          <datalist id="editSubjectSuggestions"></datalist>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Topic</label>
-          <input class="form-input" type="text" id="editTopic" autocomplete="off">
-        </div>
+        <div class="form-group"><label class="form-label">Duration</label><input class="form-input" type="text" id="editDuration" placeholder="14:32" autocomplete="off"></div>
+        <div class="form-group"><label class="form-label">Channel / Author</label><input class="form-input" type="text" id="editChannel" autocomplete="off"></div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Duration</label>
-          <input class="form-input" type="text" id="editDuration" placeholder="14:32" autocomplete="off">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Channel / Author</label>
-          <input class="form-input" type="text" id="editChannel" autocomplete="off">
-        </div>
-      </div>
-      <button class="save-btn" onclick="saveEdit()">
+      <button class="save-btn" id="saveEditBtn" onclick="saveEdit()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>
         Save Changes
       </button>
@@ -558,23 +454,121 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'freeedu_videos_v1';
+// ── CONFIG ──
+const GITHUB_USER  = 'damarasooriya';
+const GITHUB_REPO  = 'freeedu';
+const DATA_FILE    = 'data/videos.json';
+const ADMIN_PASS   = 'Pissuhtta@123';
+const API_BASE     = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DATA_FILE}`;
+const RAW_URL      = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${DATA_FILE}`;
+
+// ── SESSION ──
+// Token stored in sessionStorage only — cleared when tab/browser closes
+let ghToken = null;
+let videos  = [];
 let currentSource = 'youtube';
 
-function loadVideos() {
+// ── LOGIN ──
+function doLogin() {
+  const pass  = document.getElementById('loginPassword').value;
+  const token = document.getElementById('loginToken').value.trim();
+  const err   = document.getElementById('loginError');
+  const errMsg= document.getElementById('loginErrorMsg');
+
+  if (pass !== ADMIN_PASS) {
+    errMsg.textContent = 'Incorrect password.';
+    err.classList.add('show');
+    document.getElementById('loginPassword').focus();
+    return;
+  }
+  if (!token || !token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+    errMsg.textContent = 'Token looks invalid. It should start with ghp_ or github_pat_';
+    err.classList.add('show');
+    document.getElementById('loginToken').focus();
+    return;
+  }
+
+  err.classList.remove('show');
+  ghToken = token;
+  sessionStorage.setItem('fe_token', token); // session only
+
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminApp').style.display = 'block';
+  loadVideos();
+}
+
+function doLogout() {
+  ghToken = null;
+  sessionStorage.removeItem('fe_token');
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminApp').style.display = 'none';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginToken').value = '';
+}
+
+// Restore session if tab hasn't been closed
+(function restoreSession() {
+  const saved = sessionStorage.getItem('fe_token');
+  if (saved) {
+    ghToken = saved;
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminApp').style.display = 'block';
+    loadVideos();
+  }
+})();
+
+// ── GITHUB API ──
+async function getFileSha() {
   try {
-    const s = localStorage.getItem(STORAGE_KEY);
-    if (s) { const p = JSON.parse(s); if (p && Array.isArray(p.videos)) return p.videos; }
-  } catch(e) {}
-  return [];
+    const res = await fetch(API_BASE, {
+      headers: { Authorization: `Bearer ${ghToken}`, Accept: 'application/vnd.github+json' }
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.sha || null;
+  } catch(e) { return null; }
 }
 
-function saveVideos(videos) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ videos })); } catch(e) {}
+async function saveToGitHub(newVideos) {
+  const sha = await getFileSha();
+  const content = btoa(unescape(encodeURIComponent(
+    JSON.stringify({ videos: newVideos }, null, 2)
+  )));
+  const body = { message: `Update videos.json [FreeEdu Admin]`, content };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(API_BASE, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${ghToken}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'GitHub API error');
+  }
+  return true;
 }
 
+async function loadVideos() {
+  try {
+    const res = await fetch(RAW_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    videos = Array.isArray(data.videos) ? data.videos : [];
+  } catch(e) {
+    videos = [];
+  }
+  renderAll();
+}
+
+// ── HELPERS ──
 function generateId() {
-  return 'sv_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+  return 'fe_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
 }
 
 function extractYouTubeId(input) {
@@ -589,48 +583,40 @@ function extractYouTubeId(input) {
   return null;
 }
 
-function getYTThumb(id) { return `https://img.youtube.com/vi/${id}/mqdefault.jpg`; }
-
-function getSubjectColor(subject) {
-  const c = { 'biology':'#22c55e','chemistry':'#f59e0b','physics':'#3b82f6','mathematics':'#8b5cf6','math':'#8b5cf6','maths':'#8b5cf6','english':'#ec4899','english literature':'#ec4899','economics':'#14b8a6','history':'#f97316','geography':'#10b981','computer science':'#6366f1','psychology':'#e879f9','sociology':'#fb923c' };
-  return c[(subject||'').toLowerCase()] || '#6366f1';
+function getSubjectColor(s) {
+  const c = {'biology':'#22c55e','chemistry':'#f59e0b','physics':'#3b82f6','mathematics':'#8b5cf6','math':'#8b5cf6','maths':'#8b5cf6','english':'#ec4899','english literature':'#ec4899','economics':'#14b8a6','history':'#f97316','geography':'#10b981','computer science':'#6366f1','psychology':'#e879f9','sociology':'#fb923c'};
+  return c[(s||'').toLowerCase()] || '#6366f1';
 }
 
 function formatDate(ts) {
-  const d = new Date(ts), now = new Date();
-  const diff = Math.floor((now - d) / 1000);
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return Math.floor(diff/60) + 'm ago';
-  if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
-  if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
-  return d.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+  const d=new Date(ts),now=new Date(),diff=Math.floor((now-d)/1000);
+  if(diff<60)return'just now';
+  if(diff<3600)return Math.floor(diff/60)+'m ago';
+  if(diff<86400)return Math.floor(diff/3600)+'h ago';
+  if(diff<604800)return Math.floor(diff/86400)+'d ago';
+  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
 }
 
-function selectSource(src) {
-  currentSource = src;
-  document.getElementById('srcYT').classList.toggle('selected', src === 'youtube');
-  document.getElementById('srcTG').classList.toggle('selected', src === 'telegram');
-  document.getElementById('urlLabel').textContent = src === 'youtube'
-    ? 'YouTube URL or Video ID *'
-    : 'Telegram Message URL *';
-  document.getElementById('videoUrl').placeholder = src === 'youtube'
-    ? 'https://youtube.com/watch?v=...'
-    : 'https://t.me/channel/123';
-  document.getElementById('urlHint').textContent = src === 'youtube'
-    ? 'Supports: youtube.com/watch?v=..., youtu.be/..., or just the 11-char video ID'
-    : 'Full Telegram message link, e.g. https://t.me/yourchannel/42';
+function getUniqueSubjects() {
+  return [...new Set(videos.map(v=>v.subject).filter(Boolean))].sort();
 }
 
-function addVideo() {
-  const url = document.getElementById('videoUrl').value.trim();
-  const title = document.getElementById('videoTitle').value.trim();
-  const subject = document.getElementById('videoSubject').value.trim();
-  const topic = document.getElementById('videoTopic').value.trim();
+function setSaving(on) {
+  document.getElementById('savingIndicator').classList.toggle('show', on);
+  document.getElementById('addBtn').disabled = on;
+}
+
+// ── ADD VIDEO ──
+async function addVideo() {
+  const url      = document.getElementById('videoUrl').value.trim();
+  const title    = document.getElementById('videoTitle').value.trim();
+  const subject  = document.getElementById('videoSubject').value.trim();
+  const topic    = document.getElementById('videoTopic').value.trim();
   const duration = document.getElementById('videoDuration').value.trim();
-  const channel = document.getElementById('videoChannel').value.trim();
+  const channel  = document.getElementById('videoChannel').value.trim();
 
-  if (!url) { showToast('Please enter a URL', false); return; }
-  if (!title) { showToast('Please enter a title', false); return; }
+  if (!url)     { showToast('Please enter a URL', false); return; }
+  if (!title)   { showToast('Please enter a title', false); return; }
   if (!subject) { showToast('Please enter a subject', false); return; }
 
   let videoId = null;
@@ -639,231 +625,217 @@ function addVideo() {
     if (!videoId) { showToast('Invalid YouTube URL or ID', false); return; }
   }
 
-  const videos = loadVideos();
-  videos.unshift({
+  const newVideo = {
     id: generateId(),
     source: currentSource,
     videoId,
     url: currentSource === 'youtube' ? `https://www.youtube.com/watch?v=${videoId}` : url,
     title, subject, topic, duration, channel,
     addedAt: Date.now()
-  });
-  saveVideos(videos);
-  renderAll();
-  ['videoUrl','videoTitle','videoSubject','videoTopic','videoDuration','videoChannel'].forEach(id => { document.getElementById(id).value = ''; });
-  showToast('Video added!', true);
-}
-
-function deleteVideo(id) {
-  const videos = loadVideos();
-  const v = videos.find(x => x.id === id);
-  if (!v || !confirm(`Delete "${v.title}"?`)) return;
-  saveVideos(videos.filter(x => x.id !== id));
-  renderAll();
-  showToast('Video deleted', true);
-}
-
-function openEdit(id) {
-  const videos = loadVideos();
-  const v = videos.find(x => x.id === id);
-  if (!v) return;
-  document.getElementById('editId').value = v.id;
-  document.getElementById('editTitle').value = v.title || '';
-  document.getElementById('editSubject').value = v.subject || '';
-  document.getElementById('editTopic').value = v.topic || '';
-  document.getElementById('editDuration').value = v.duration || '';
-  document.getElementById('editChannel').value = v.channel || '';
-  updateEditSubjectSuggestions();
-  document.getElementById('editModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function saveEdit() {
-  const id = document.getElementById('editId').value;
-  const videos = loadVideos();
-  const idx = videos.findIndex(v => v.id === id);
-  if (idx === -1) return;
-  videos[idx] = {
-    ...videos[idx],
-    title: document.getElementById('editTitle').value.trim(),
-    subject: document.getElementById('editSubject').value.trim(),
-    topic: document.getElementById('editTopic').value.trim(),
-    duration: document.getElementById('editDuration').value.trim(),
-    channel: document.getElementById('editChannel').value.trim()
   };
-  saveVideos(videos);
-  renderAll();
-  closeEditModal();
-  showToast('Changes saved!', true);
+
+  setSaving(true);
+  try {
+    const updated = [newVideo, ...videos];
+    await saveToGitHub(updated);
+    videos = updated;
+    renderAll();
+    ['videoUrl','videoTitle','videoSubject','videoTopic','videoDuration','videoChannel'].forEach(id=>{ document.getElementById(id).value=''; });
+    showToast('Video added and saved to GitHub!', true);
+  } catch(e) {
+    showToast('GitHub save failed: ' + e.message, false);
+  } finally {
+    setSaving(false);
+  }
 }
 
-function closeEditModal() {
+// ── DELETE ──
+async function deleteVideo(id) {
+  const v = videos.find(x=>x.id===id);
+  if (!v || !confirm(`Delete "${v.title}"?`)) return;
+  const btn = document.querySelector(`[data-del="${id}"]`);
+  if (btn) btn.disabled = true;
+  try {
+    const updated = videos.filter(x=>x.id!==id);
+    await saveToGitHub(updated);
+    videos = updated;
+    renderAll();
+    showToast('Video deleted', true);
+  } catch(e) {
+    showToast('Delete failed: ' + e.message, false);
+    if (btn) btn.disabled = false;
+  }
+}
+
+// ── EDIT ──
+function openEdit(id) {
+  const v = videos.find(x=>x.id===id);
+  if (!v) return;
+  document.getElementById('editId').value    = v.id;
+  document.getElementById('editTitle').value   = v.title    || '';
+  document.getElementById('editSubject').value = v.subject  || '';
+  document.getElementById('editTopic').value   = v.topic    || '';
+  document.getElementById('editDuration').value= v.duration || '';
+  document.getElementById('editChannel').value = v.channel  || '';
+  document.getElementById('editSubjectList').innerHTML = getUniqueSubjects().map(s=>`<option value="${s}">`).join('');
+  document.getElementById('editModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+async function saveEdit() {
+  const id  = document.getElementById('editId').value;
+  const idx = videos.findIndex(v=>v.id===id);
+  if (idx===-1) return;
+  const btn = document.getElementById('saveEditBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="mini-spinner" style="border-color:rgba(255,255,255,0.3);border-top-color:#fff"></div> Saving…';
+  try {
+    videos[idx] = {
+      ...videos[idx],
+      title:    document.getElementById('editTitle').value.trim(),
+      subject:  document.getElementById('editSubject').value.trim(),
+      topic:    document.getElementById('editTopic').value.trim(),
+      duration: document.getElementById('editDuration').value.trim(),
+      channel:  document.getElementById('editChannel').value.trim()
+    };
+    await saveToGitHub(videos);
+    renderAll();
+    closeEdit();
+    showToast('Changes saved to GitHub!', true);
+  } catch(e) {
+    showToast('Save failed: ' + e.message, false);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg> Save Changes';
+  }
+}
+
+function closeEdit() {
   document.getElementById('editModal').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
 
-function handleEditModalClick(e) {
-  if (e.target === document.getElementById('editModal')) closeEditModal();
+function handleEditClick(e) { if (e.target===document.getElementById('editModal')) closeEdit(); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeEdit(); });
+
+// ── SOURCE TOGGLE ──
+function selectSource(src) {
+  currentSource = src;
+  document.getElementById('srcYT').classList.toggle('selected', src==='youtube');
+  document.getElementById('srcTG').classList.toggle('selected', src==='telegram');
+  document.getElementById('urlLabel').textContent = src==='youtube' ? 'YouTube URL or Video ID *' : 'Telegram Message URL *';
+  document.getElementById('videoUrl').placeholder  = src==='youtube' ? 'https://youtube.com/watch?v=...' : 'https://t.me/channel/123';
+  document.getElementById('urlHint').textContent   = src==='youtube' ? 'Supports full URL, youtu.be/..., or the 11-char video ID' : 'Full Telegram message link e.g. https://t.me/yourchannel/42';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEditModal(); });
-
-function updateEditSubjectSuggestions() {
-  const dl = document.getElementById('editSubjectSuggestions');
-  const subjects = [...new Set(loadVideos().map(v => v.subject).filter(Boolean))].sort();
-  dl.innerHTML = subjects.map(s => `<option value="${s}">`).join('');
-}
-
+// ── EXPORT / IMPORT / CLEAR ──
 function exportData() {
-  const videos = loadVideos();
-  const blob = new Blob([JSON.stringify({ videos }, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
+  const blob = new Blob([JSON.stringify({videos},null,2)],{type:'application/json'});
   const a = document.createElement('a');
-  a.href = url; a.download = 'freeedu-backup.json'; a.click();
-  URL.revokeObjectURL(url);
-  showToast('Exported successfully!', true);
+  a.href=URL.createObjectURL(blob);a.download='freeedu-backup.json';a.click();
+  showToast('Exported!',true);
 }
 
 function importData(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async ev=>{
     try {
-      const data = JSON.parse(ev.target.result);
-      if (!data.videos || !Array.isArray(data.videos)) throw new Error('Invalid format');
-      const existing = loadVideos();
-      const existingIds = new Set(existing.map(v => v.id));
-      const merged = [...existing, ...data.videos.filter(v => v.id && !existingIds.has(v.id))];
-      saveVideos(merged);
-      renderAll();
-      showToast(`Imported ${data.videos.length} video(s)`, true);
-    } catch(err) {
-      showToast('Invalid JSON file', false);
-    }
+      const data=JSON.parse(ev.target.result);
+      if(!data.videos||!Array.isArray(data.videos)) throw new Error('Invalid format');
+      const existingIds=new Set(videos.map(v=>v.id));
+      const merged=[...videos,...data.videos.filter(v=>v.id&&!existingIds.has(v.id))];
+      setSaving(true);
+      await saveToGitHub(merged);
+      videos=merged;renderAll();
+      showToast(`Imported ${data.videos.length} video(s) to GitHub!`,true);
+    } catch(err){showToast('Import failed: '+err.message,false);}
+    finally{setSaving(false);}
   };
   reader.readAsText(file);
-  e.target.value = '';
+  e.target.value='';
 }
 
-function clearAll() {
-  const videos = loadVideos();
-  if (!videos.length) { showToast('Library is already empty', false); return; }
-  if (!confirm(`Delete all ${videos.length} videos permanently? This cannot be undone.`)) return;
-  saveVideos([]);
-  renderAll();
-  showToast('Library cleared', true);
+async function clearAll() {
+  if(!videos.length){showToast('Library is already empty',false);return;}
+  if(!confirm(`Delete all ${videos.length} videos permanently from GitHub? This cannot be undone.`))return;
+  setSaving(true);
+  try {
+    await saveToGitHub([]);
+    videos=[];renderAll();
+    showToast('Library cleared on GitHub',true);
+  } catch(e){showToast('Clear failed: '+e.message,false);}
+  finally{setSaving(false);}
 }
 
+// ── RENDER ──
 function renderStats() {
-  const videos = loadVideos();
-  const ytCount = videos.filter(v => v.source === 'youtube').length;
-  const tgCount = videos.filter(v => v.source === 'telegram').length;
-  const subjects = new Set(videos.map(v => v.subject).filter(Boolean)).size;
-  document.getElementById('statsRow').innerHTML = `
+  const yt=videos.filter(v=>v.source==='youtube').length;
+  const tg=videos.filter(v=>v.source==='telegram').length;
+  const subs=new Set(videos.map(v=>v.subject).filter(Boolean)).size;
+  document.getElementById('statsRow').innerHTML=`
     <div class="stat-mini"><div class="stat-mini-val">${videos.length}</div><div class="stat-mini-lbl">Total Videos</div></div>
-    <div class="stat-mini"><div class="stat-mini-val" style="color:#ff4444">${ytCount}</div><div class="stat-mini-lbl">YouTube</div></div>
-    <div class="stat-mini"><div class="stat-mini-val" style="color:var(--telegram)">${tgCount}</div><div class="stat-mini-lbl">Telegram</div></div>
-    <div class="stat-mini"><div class="stat-mini-val" style="color:var(--accent)">${subjects}</div><div class="stat-mini-lbl">Subjects</div></div>
-  `;
+    <div class="stat-mini"><div class="stat-mini-val" style="color:#ff4444">${yt}</div><div class="stat-mini-lbl">YouTube</div></div>
+    <div class="stat-mini"><div class="stat-mini-val" style="color:var(--telegram)">${tg}</div><div class="stat-mini-lbl">Telegram</div></div>
+    <div class="stat-mini"><div class="stat-mini-val" style="color:var(--accent)">${subs}</div><div class="stat-mini-lbl">Subjects</div></div>`;
 }
 
 function renderSubjectFilter() {
-  const videos = loadVideos();
-  const subjects = [...new Set(videos.map(v => v.subject).filter(Boolean))].sort();
+  const subjects = getUniqueSubjects();
   const sf = document.getElementById('subjectFilter');
   const cur = sf.value;
-  sf.innerHTML = `<option value="all">All subjects</option>` +
-    subjects.map(s => `<option value="${s}" ${s === cur ? 'selected' : ''}>${s}</option>`).join('');
-
-  const dl = document.getElementById('subjectSuggestions');
-  dl.innerHTML = subjects.map(s => `<option value="${s}">`).join('');
+  sf.innerHTML = `<option value="all">All subjects</option>` + subjects.map(s=>`<option value="${s}"${s===cur?' selected':''}>${s}</option>`).join('');
+  document.getElementById('subjectSuggestions').innerHTML = subjects.map(s=>`<option value="${s}">`).join('');
 }
 
 function renderTable() {
-  const videos = loadVideos();
-  const q = (document.getElementById('listSearch').value || '').toLowerCase();
-  const subFilter = document.getElementById('subjectFilter').value;
-  const srcFilter = document.getElementById('sourceFilter').value;
-
+  const q      = (document.getElementById('listSearch').value||'').toLowerCase();
+  const subF   = document.getElementById('subjectFilter').value;
+  const srcF   = document.getElementById('sourceFilter').value;
   let filtered = videos;
-  if (subFilter !== 'all') filtered = filtered.filter(v => v.subject === subFilter);
-  if (srcFilter !== 'all') filtered = filtered.filter(v => v.source === srcFilter);
-  if (q) filtered = filtered.filter(v =>
-    (v.title||'').toLowerCase().includes(q) ||
-    (v.subject||'').toLowerCase().includes(q) ||
-    (v.topic||'').toLowerCase().includes(q) ||
-    (v.channel||'').toLowerCase().includes(q)
-  );
+  if(subF!=='all') filtered=filtered.filter(v=>v.subject===subF);
+  if(srcF!=='all') filtered=filtered.filter(v=>v.source===srcF);
+  if(q) filtered=filtered.filter(v=>(v.title||'').toLowerCase().includes(q)||(v.subject||'').toLowerCase().includes(q)||(v.topic||'').toLowerCase().includes(q));
 
-  document.getElementById('countBadge').textContent = videos.length;
+  document.getElementById('countBadge').textContent=videos.length;
+  const tbody=document.getElementById('tableBody');
+  const empty=document.getElementById('emptyState');
 
-  const tbody = document.getElementById('tableBody');
-  const empty = document.getElementById('emptyState');
+  if(!filtered.length){tbody.innerHTML='';empty.style.display='flex';return;}
+  empty.style.display='none';
 
-  if (filtered.length === 0) {
-    tbody.innerHTML = '';
-    empty.style.display = 'flex';
-    return;
-  }
-
-  empty.style.display = 'none';
-  tbody.innerHTML = filtered.map(v => {
-    const color = getSubjectColor(v.subject);
-    let thumb = '';
-    if (v.source === 'youtube' && v.videoId) {
-      thumb = `<div class="td-thumb"><img src="${getYTThumb(v.videoId)}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=td-thumb-ph><svg viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><polygon points=\\'5,3 19,12 5,21\\'/></svg></div>'"></div>`;
-    } else {
-      thumb = `<div class="td-thumb"><div class="td-thumb-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5,3 19,12 5,21"/></svg></div></div>`;
-    }
-    return `
-      <tr>
-        <td>${thumb}</td>
-        <td><div class="td-title">${v.title || 'Untitled'}<small>${v.topic ? v.topic : (v.channel || '')}</small></div></td>
-        <td><span style="color:${color};font-size:12px;font-weight:600">${v.subject || '—'}</span></td>
-        <td>
-          <span class="source-dot ${v.source}">
-            ${v.source === 'youtube'
-              ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C17.3 2.5 12 2.5 12 2.5s-5.3 0-8.1.2C3.4 2.8 2.4 3 1.5 3.8.6 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.9c0 2 .2 4 .2 4s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1C6.1 19.7 12 19.8 12 19.8s5.3 0 8.1-.3c.5-.1 1.5-.2 2.4-1.1.8-.7 1-2.4 1-2.4s.2-2 .2-4v-1.9c0-2-.2-3.9-.2-3.9zM9.7 13.6V7.2l6.5 3.2-6.5 3.2z"/></svg>YT'
-              : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.9 8.2l-2 9.5c-.1.7-.6.9-1.1.5l-3-2.3-1.5 1.4c-.2.2-.4.3-.7.3l.3-3.1 6.1-5.5c.3-.2-.1-.3-.4-.2L6.7 13.6 3.8 12.7c-.7-.2-.7-.7.1-1l11.5-4.4c.6-.2 1.2.1 1 .9h-.5z"/></svg>TG'}
-          </span>
-        </td>
-        <td style="color:var(--text-muted);font-size:12px">${v.duration || '—'}</td>
-        <td style="color:var(--text-muted);font-size:11px;white-space:nowrap">${formatDate(v.addedAt)}</td>
-        <td>
-          <div class="td-actions">
-            <button class="action-btn edit-btn" onclick="openEdit('${v.id}')" title="Edit">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </button>
-            <button class="action-btn del-btn" onclick="deleteVideo('${v.id}')" title="Delete">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14H6L5,6"/><path d="M10,11v6M14,11v6"/><path d="M9,6V4h6v2"/></svg>
-            </button>
-          </div>
-        </td>
-      </tr>
-    `;
+  tbody.innerHTML=filtered.map(v=>{
+    const color=getSubjectColor(v.subject);
+    const thumb=v.source==='youtube'&&v.videoId
+      ?`<div class="td-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=td-thumb-ph><svg viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><polygon points=\\'5,3 19,12 5,21\\'/></svg></div>'"></div>`
+      :`<div class="td-thumb"><div class="td-thumb-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5,3 19,12 5,21"/></svg></div></div>`;
+    const srcBadge=v.source==='youtube'
+      ?`<span class="source-dot youtube"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C17.3 2.5 12 2.5 12 2.5s-5.3 0-8.1.2C3.4 2.8 2.4 3 1.5 3.8.6 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.9c0 2 .2 4 .2 4s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1C6.1 19.7 12 19.8 12 19.8s5.3 0 8.1-.3c.5-.1 1.5-.2 2.4-1.1.8-.7 1-2.4 1-2.4s.2-2 .2-4v-1.9c0-2-.2-3.9-.2-3.9zM9.7 13.6V7.2l6.5 3.2-6.5 3.2z"/></svg>YT</span>`
+      :`<span class="source-dot telegram"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.9 8.2l-2 9.5c-.1.7-.6.9-1.1.5l-3-2.3-1.5 1.4c-.2.2-.4.3-.7.3l.3-3.1 6.1-5.5c.3-.2-.1-.3-.4-.2L6.7 13.6 3.8 12.7c-.7-.2-.7-.7.1-1l11.5-4.4c.6-.2 1.2.1 1 .9h-.5z"/></svg>TG</span>`;
+    return`<tr>
+      <td>${thumb}</td>
+      <td><div class="td-title">${v.title||'Untitled'}<small>${v.topic||(v.channel||'')}</small></div></td>
+      <td><span style="color:${color};font-size:12px;font-weight:600">${v.subject||'—'}</span></td>
+      <td>${srcBadge}</td>
+      <td style="color:var(--text-muted);font-size:12px">${v.duration||'—'}</td>
+      <td style="color:var(--text-muted);font-size:11px;white-space:nowrap">${formatDate(v.addedAt)}</td>
+      <td><div class="td-actions">
+        <button class="action-btn edit-btn" onclick="openEdit('${v.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="action-btn del-btn" data-del="${v.id}" onclick="deleteVideo('${v.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14H6L5,6"/><path d="M10,11v6M14,11v6"/><path d="M9,6V4h6v2"/></svg></button>
+      </div></td>
+    </tr>`;
   }).join('');
 }
 
-function renderAll() {
-  renderStats();
-  renderSubjectFilter();
-  renderTable();
-}
+function renderAll() { renderStats(); renderSubjectFilter(); renderTable(); }
 
-function showToast(msg, success = true) {
-  const t = document.getElementById('toast');
-  const icon = document.getElementById('toastIcon');
-  document.getElementById('toastMsg').textContent = msg;
-  t.className = 'toast' + (success ? ' success' : '');
-  icon.innerHTML = success
-    ? `<polyline points="20,6 9,17 4,12"/>`
-    : `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="12" y1="20" x2="12.01" y2="20"/>`;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+function showToast(msg,success=true) {
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.className='toast'+(success?' success':'');
+  document.getElementById('toastIcon').innerHTML=success?`<polyline points="20,6 9,17 4,12"/>`:`<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/>`;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);
 }
-
-renderAll();
 </script>
 </body>
 </html>
