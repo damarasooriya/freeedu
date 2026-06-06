@@ -1,0 +1,52 @@
+{
+  "videos": [
+    {
+      "id": "sv_sample_1",
+      "source": "youtube",
+      "videoId": "UIKGV2cTgqA",
+      "url": "https://www.youtube.com/watch?v=UIKGV2cTgqA",
+      "title": "Photosynthesis — Light-Dependent Reactions",
+      "subject": "Biology",
+      "topic": "Cell Biology",
+      "duration": "14:22",
+      "channel": "AQA Science",
+      "addedAt": 1700000000000
+    },
+    {
+      "id": "sv_sample_2",
+      "source": "youtube",
+      "videoId": "NrvU1aFOiKw",
+      "url": "https://www.youtube.com/watch?v=NrvU1aFOiKw",
+      "title": "Integration by Parts — Step-by-Step",
+      "subject": "Mathematics",
+      "topic": "Calculus",
+      "duration": "18:05",
+      "channel": "Exam Solutions",
+      "addedAt": 1700100000000
+    },
+    {
+      "id": "sv_sample_3",
+      "source": "youtube",
+      "videoId": "8mAITcNt710",
+      "url": "https://www.youtube.com/watch?v=8mAITcNt710",
+      "title": "Newton's Laws of Motion — Full Revision",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "duration": "20:33",
+      "channel": "Physics & Maths Tutor",
+      "addedAt": 1700200000000
+    },
+    {
+      "id": "sv_sample_4",
+      "source": "youtube",
+      "videoId": "jOAU81jdi-c",
+      "url": "https://www.youtube.com/watch?v=jOAU81jdi-c",
+      "title": "Organic Chemistry — Functional Groups",
+      "subject": "Chemistry",
+      "topic": "Organic Chemistry",
+      "duration": "25:18",
+      "channel": "ChemSimplified",
+      "addedAt": 1700300000000
+    }
+  ]
+}
