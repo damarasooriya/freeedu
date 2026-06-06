@@ -1,18 +1,6 @@
 {
   "videos": [
     {
-      "id": "sv_sample_1",
-      "source": "youtube",
-      "videoId": "UIKGV2cTgqA",
-      "url": "https://www.youtube.com/watch?v=UIKGV2cTgqA",
-      "title": "Photosynthesis — Light-Dependent Reactions",
-      "subject": "Biology",
-      "topic": "Cell Biology",
-      "duration": "14:22",
-      "channel": "AQA Science",
-      "addedAt": 1700000000000
-    },
-    {
       "id": "sv_sample_2",
       "source": "youtube",
       "videoId": "NrvU1aFOiKw",
