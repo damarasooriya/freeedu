@@ -9,1110 +9,219 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #080808;
-    --bg-surface: #111111;
-    --bg-card: #161616;
-    --bg-card-hover: #1c1c1c;
-    --bg-elevated: #1e1e1e;
-    --accent: #6366f1;
-    --accent-dim: rgba(99,102,241,0.15);
-    --accent-glow: rgba(99,102,241,0.08);
-    --accent-border: rgba(99,102,241,0.35);
-    --text-primary: #f0f0f0;
-    --text-secondary: #888888;
-    --text-muted: #555555;
-    --border: rgba(255,255,255,0.06);
-    --border-hover: rgba(255,255,255,0.12);
-    --success: #22c55e;
-    --success-dim: rgba(34,197,94,0.12);
-    --danger: #ef4444;
-    --youtube: #ff0000;
-    --telegram: #229ED9;
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    --sidebar-w: 240px;
-    --transition: 200ms ease;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-    display: flex;
-    overflow-x: hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; animation: none !important; }
-  }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 99px; }
-
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width: var(--sidebar-w);
-    min-width: var(--sidebar-w);
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    background: var(--bg-surface);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    padding: 24px 0;
-    overflow-y: auto;
-    z-index: 100;
-    transition: transform var(--transition);
-  }
-
-  .sidebar-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 20px 24px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 8px;
-  }
-
-  .logo-icon {
-    width: 34px;
-    height: 34px;
-    background: var(--accent);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .logo-icon svg { width: 18px; height: 18px; color: #fff; }
-
-  .logo-text {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 17px;
-    letter-spacing: -0.3px;
-    color: var(--text-primary);
-  }
-
-  .logo-text span { color: var(--accent); }
-
-  .sidebar-section-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 12px 20px 6px;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 20px;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer;
-    border-radius: 0;
-    transition: color var(--transition), background var(--transition);
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    position: relative;
-  }
-
-  .nav-item:hover { color: var(--text-primary); background: rgba(255,255,255,0.03); }
-
-  .nav-item.active {
-    color: var(--accent);
-    background: var(--accent-glow);
-  }
-
-  .nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 20px;
-    background: var(--accent);
-    border-radius: 0 3px 3px 0;
-  }
-
-  .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-  .nav-badge {
-    margin-left: auto;
-    background: var(--accent-dim);
-    color: var(--accent);
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 99px;
-    min-width: 20px;
-    text-align: center;
-  }
-
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 16px 20px 0;
-    border-top: 1px solid var(--border);
-  }
-
-  .admin-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
-    background: var(--accent-dim);
-    border: 1px solid var(--accent-border);
-    border-radius: var(--radius-md);
-    color: var(--accent);
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
-    transition: background var(--transition), border-color var(--transition);
-  }
-
-  .admin-btn:hover { background: rgba(99,102,241,0.22); border-color: rgba(99,102,241,0.5); }
-  .admin-btn svg { width: 15px; height: 15px; }
-
-  /* ── MAIN ── */
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    overflow-x: hidden;
-  }
-
-  /* ── TOPBAR ── */
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 90;
-    background: rgba(8,8,8,0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .topbar-left { flex: 1; display: flex; align-items: center; gap: 12px; }
-
-  .hamburger {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 4px;
-  }
-
-  .hamburger svg { width: 20px; height: 20px; }
-
-  .search-wrap {
-    position: relative;
-    flex: 1;
-    max-width: 420px;
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    pointer-events: none;
-  }
-
-  .search-icon svg { width: 15px; height: 15px; }
-
-  .search-input {
-    width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 13.5px;
-    padding: 9px 12px 9px 36px;
-    outline: none;
-    transition: border-color var(--transition), background var(--transition);
-  }
-
-  .search-input::placeholder { color: var(--text-muted); }
-  .search-input:focus { border-color: var(--accent-border); background: var(--bg-elevated); }
-
-  .topbar-right { display: flex; align-items: center; gap: 10px; }
-
-  .sort-select {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    font-family: var(--font-body);
-    font-size: 13px;
-    padding: 7px 10px;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .sort-select:focus { border-color: var(--accent-border); }
-
-  .view-toggle { display: flex; gap: 4px; }
-
-  .view-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 6px 8px;
-    transition: all var(--transition);
-  }
-
-  .view-btn.active { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
-  .view-btn:hover:not(.active) { border-color: var(--border-hover); color: var(--text-secondary); }
-  .view-btn svg { width: 15px; height: 15px; display: block; }
-
-  /* ── PAGE CONTENT ── */
-  .page-content { padding: 28px; flex: 1; }
-
-  /* ── PAGE HEADER ── */
-  .page-header { margin-bottom: 24px; }
-
-  .page-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.4px;
-    margin-bottom: 4px;
-  }
-
-  .page-subtitle { font-size: 14px; color: var(--text-secondary); font-weight: 300; }
-
-  /* ── FILTER CHIPS ── */
-  .filter-bar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-
-  .filter-chip {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
-    border-radius: 99px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-secondary);
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all var(--transition);
-    white-space: nowrap;
-  }
-
-  .filter-chip:hover { border-color: var(--border-hover); color: var(--text-primary); }
-
-  .filter-chip.active {
-    background: var(--accent-dim);
-    border-color: var(--accent-border);
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .chip-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    flex-shrink: 0;
-  }
-
-  /* ── VIDEO GRID ── */
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 18px;
-  }
-
-  .video-grid.list-view {
-    grid-template-columns: 1fr;
-  }
-
-  .video-grid.list-view .video-card {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .video-grid.list-view .video-thumb-wrap {
-    width: 180px;
-    min-width: 180px;
-    aspect-ratio: 16/9;
-  }
-
-  .video-grid.list-view .video-body { padding: 8px 0; }
-
-  /* ── VIDEO CARD ── */
-  .video-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform var(--transition), border-color var(--transition), background var(--transition);
-    position: relative;
-  }
-
-  .video-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-hover);
-    background: var(--bg-card-hover);
-  }
-
-  .video-card:hover .play-overlay { opacity: 1; }
-  .video-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  /* ── THUMBNAIL ── */
-  .video-thumb-wrap {
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    background: var(--bg-elevated);
-  }
-
-  .video-thumb {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 300ms ease;
-  }
-
-  .video-card:hover .video-thumb { transform: scale(1.03); }
-
-  .thumb-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--bg-elevated) 0%, #1a1a2e 100%);
-  }
-
-  .thumb-placeholder svg { width: 32px; height: 32px; color: var(--text-muted); }
-
-  .play-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity var(--transition);
-  }
-
-  .play-btn-circle {
-    width: 48px;
-    height: 48px;
-    background: rgba(255,255,255,0.95);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  }
-
-  .play-btn-circle svg { width: 18px; height: 18px; color: #111; margin-left: 2px; }
-
-  /* ── SOURCE BADGE ── */
-  .source-badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 8px;
-    border-radius: 99px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .source-badge.youtube {
-    background: rgba(255,0,0,0.85);
-    color: #fff;
-  }
-
-  .source-badge.telegram {
-    background: rgba(34,158,217,0.85);
-    color: #fff;
-  }
-
-  .source-badge svg { width: 10px; height: 10px; }
-
-  /* ── DURATION BADGE ── */
-  .duration-badge {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: rgba(0,0,0,0.75);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 7px;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-  }
-
-  /* ── VIDEO BODY ── */
-  .video-body { padding: 14px 16px 16px; }
-
-  .video-subject-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-
-  .video-title {
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    line-height: 1.45;
-    margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .video-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .video-meta svg { width: 12px; height: 12px; }
-
-  .meta-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--text-muted); }
-
-  .video-topic-pill {
-    display: inline-block;
-    padding: 2px 8px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    font-size: 10px;
-    color: var(--text-secondary);
-    margin-top: 8px;
-  }
-
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
-    text-align: center;
-    gap: 12px;
-    grid-column: 1 / -1;
-  }
-
-  .empty-state svg { width: 48px; height: 48px; color: var(--text-muted); margin-bottom: 8px; }
-  .empty-state h3 { font-family: var(--font-display); font-size: 17px; color: var(--text-secondary); }
-  .empty-state p { font-size: 13px; color: var(--text-muted); max-width: 280px; }
-
-  /* ── MODAL OVERLAY ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 250ms ease;
-  }
-
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-
-  .modal {
-    background: var(--bg-card);
-    border: 1px solid var(--border-hover);
-    border-radius: var(--radius-xl);
-    width: 100%;
-    max-width: 820px;
-    max-height: 90vh;
-    overflow-y: auto;
-    transform: scale(0.95) translateY(10px);
-    transition: transform 250ms ease;
-  }
-
-  .modal-overlay.open .modal { transform: scale(1) translateY(0); }
-
-  .modal-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .modal-header-text { flex: 1; min-width: 0; }
-
-  .modal-subject {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 4px;
-  }
-
-  .modal-title {
-    font-family: var(--font-display);
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.35;
-    letter-spacing: -0.2px;
-  }
-
-  .modal-close {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 6px;
-    flex-shrink: 0;
-    transition: all var(--transition);
-  }
-
-  .modal-close:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
-  .modal-close svg { width: 16px; height: 16px; display: block; }
-
-  .modal-player {
-    position: relative;
-    aspect-ratio: 16/9;
-    background: #000;
-  }
-
-  .modal-player iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-  }
-
-  .telegram-note {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 14px 20px;
-    background: rgba(34,158,217,0.08);
-    border-top: 1px solid rgba(34,158,217,0.15);
-  }
-
-  .telegram-note svg { width: 16px; height: 16px; color: var(--telegram); flex-shrink: 0; margin-top: 1px; }
-  .telegram-note p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-  .telegram-note a { color: var(--telegram); text-decoration: none; }
-  .telegram-note a:hover { text-decoration: underline; }
-
-  .watch-page-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    color: var(--text-muted);
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all var(--transition);
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 2;
-  }
-
-  .watch-page-btn:hover {
-    border-color: var(--accent-border);
-    color: var(--accent);
-    background: var(--accent-glow);
-  }
-
-  .watch-page-btn svg { width: 10px; height: 10px; }
-
-  .modal-footer {
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .modal-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .modal-meta-item svg { width: 13px; height: 13px; }
-
-  .open-external-btn {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
-    background: var(--accent-dim);
-    border: 1px solid var(--accent-border);
-    border-radius: var(--radius-sm);
-    color: var(--accent);
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background var(--transition);
-  }
-
-  .open-external-btn:hover { background: rgba(99,102,241,0.25); }
-  .open-external-btn svg { width: 13px; height: 13px; }
-
-  /* ── ADMIN PANEL ── */
-  .admin-panel {
-    position: fixed;
-    inset: 0;
-    z-index: 1100;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 20px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 250ms ease;
-  }
-
-  .admin-panel.open { pointer-events: all; opacity: 1; }
-
-  .admin-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(8px);
-  }
-
-  .admin-drawer {
-    position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border-hover);
-    border-radius: var(--radius-xl);
-    width: 100%;
-    max-width: 480px;
-    max-height: 88vh;
-    overflow-y: auto;
-    transform: translateY(20px);
-    transition: transform 250ms ease;
-  }
-
-  .admin-panel.open .admin-drawer { transform: translateY(0); }
-
-  .admin-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: var(--bg-card);
-    z-index: 1;
-  }
-
-  .admin-header h2 {
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .admin-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-
-  .form-label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: 0.3px;
-  }
-
-  .form-input, .form-select, .form-textarea {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 13.5px;
-    padding: 9px 12px;
-    outline: none;
-    transition: border-color var(--transition);
-    width: 100%;
-  }
-
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: var(--accent-border);
-  }
-
-  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
-
-  .form-textarea { resize: vertical; min-height: 70px; }
-
-  .form-select option { background: var(--bg-elevated); }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .source-toggle {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .source-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    padding: 9px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all var(--transition);
-  }
-
-  .source-option.yt { color: var(--text-secondary); }
-  .source-option.yt.selected { background: rgba(255,0,0,0.12); border-color: rgba(255,0,0,0.4); color: #ff4444; }
-
-  .source-option.tg { color: var(--text-secondary); }
-  .source-option.tg.selected { background: rgba(34,158,217,0.12); border-color: rgba(34,158,217,0.4); color: var(--telegram); }
-
-  .source-option svg { width: 14px; height: 14px; }
-
-  .add-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 11px;
-    background: var(--accent);
-    border: none;
-    border-radius: var(--radius-md);
-    color: #fff;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background var(--transition), transform var(--transition);
-    margin-top: 4px;
-  }
-
-  .add-btn:hover { background: #5254cc; }
-  .add-btn:active { transform: scale(0.98); }
-  .add-btn svg { width: 16px; height: 16px; }
-
-  .admin-divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 4px 0;
-  }
-
-  .manage-section-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 8px;
-  }
-
-  .manage-list { display: flex; flex-direction: column; gap: 8px; }
-
-  .manage-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    background: var(--bg-elevated);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-  }
-
-  .manage-item-info { flex: 1; min-width: 0; }
-
-  .manage-item-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .manage-item-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-  .delete-btn {
-    background: none;
-    border: 1px solid transparent;
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 5px;
-    transition: all var(--transition);
-    flex-shrink: 0;
-  }
-
-  .delete-btn:hover { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: var(--danger); }
-  .delete-btn svg { width: 14px; height: 14px; display: block; }
-
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(60px);
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-hover);
-    border-radius: var(--radius-md);
-    padding: 10px 18px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-primary);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: transform 300ms ease, opacity 300ms ease;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .toast.success { border-color: rgba(34,197,94,0.4); }
-  .toast.success svg { color: var(--success); }
-  .toast svg { width: 15px; height: 15px; flex-shrink: 0; }
-
-  /* ── STATS BAR ── */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 14px 16px;
-  }
-
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .stat-label { font-size: 12px; color: var(--text-muted); }
-
-  .stat-accent { color: var(--accent); }
-  .stat-green { color: var(--success); }
-
-  /* ── MOBILE SIDEBAR OVERLAY ── */
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 99;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      transform: translateX(-100%);
-    }
-
-    .sidebar.open { transform: translateX(0); }
-
-    .sidebar-overlay.open { display: block; }
-
-    .hamburger { display: flex; }
-
-    .page-content { padding: 20px 16px; }
-
-    .topbar { padding: 12px 16px; }
-
-    .video-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-
-    .form-row { grid-template-columns: 1fr; }
-
-    .admin-panel { padding: 12px; }
-
-    .video-grid.list-view .video-thumb-wrap { width: 120px; min-width: 120px; }
-  }
-
-  @media (max-width: 480px) {
-    .video-grid { grid-template-columns: 1fr; }
-
-    .filter-bar { gap: 6px; }
-
-    .filter-chip { padding: 6px 10px; font-size: 12px; }
-  }
-
-  @media (min-width: 1440px) {
-    .video-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    --bg:#080808;--bg-surface:#111111;--bg-card:#161616;--bg-card-hover:#1c1c1c;
+    --bg-elevated:#1e1e1e;--accent:#6366f1;--accent-dim:rgba(99,102,241,0.15);
+    --accent-glow:rgba(99,102,241,0.08);--accent-border:rgba(99,102,241,0.35);
+    --text-primary:#f0f0f0;--text-secondary:#888888;--text-muted:#555555;
+    --border:rgba(255,255,255,0.06);--border-hover:rgba(255,255,255,0.12);
+    --success:#22c55e;--danger:#ef4444;--telegram:#229ED9;
+    --font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+    --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;
+    --sidebar-w:240px;--transition:200ms ease;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;overflow-x:hidden;}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
+  ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:99px;}
+
+  .sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;position:sticky;top:0;background:var(--bg-surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:24px 0;overflow-y:auto;z-index:100;transition:transform var(--transition);}
+  .sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:8px;}
+  .logo-icon{width:34px;height:34px;background:var(--accent);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .logo-icon svg{width:18px;height:18px;color:#fff;}
+  .logo-text{font-family:var(--font-display);font-weight:700;font-size:17px;letter-spacing:-0.3px;color:var(--text-primary);}
+  .logo-text span{color:var(--accent);}
+  .sidebar-section-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);padding:12px 20px 6px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;color:var(--text-secondary);font-size:14px;font-weight:400;cursor:pointer;border-radius:0;transition:color var(--transition),background var(--transition);border:none;background:none;width:100%;text-align:left;position:relative;}
+  .nav-item:hover{color:var(--text-primary);background:rgba(255,255,255,0.03);}
+  .nav-item.active{color:var(--accent);background:var(--accent-glow);}
+  .nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:0 3px 3px 0;}
+  .nav-item svg{width:16px;height:16px;flex-shrink:0;}
+  .nav-badge{margin-left:auto;background:var(--accent-dim);color:var(--accent);font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;min-width:20px;text-align:center;}
+  .sidebar-footer{margin-top:auto;padding:16px 20px 0;border-top:1px solid var(--border);}
+  .admin-btn{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:var(--radius-md);color:var(--accent);font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;width:100%;text-decoration:none;transition:background var(--transition);}
+  .admin-btn:hover{background:rgba(99,102,241,0.22);}
+  .admin-btn svg{width:15px;height:15px;}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;overflow-x:hidden;}
+  .topbar{position:sticky;top:0;z-index:90;background:rgba(8,8,8,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:16px;}
+  .topbar-left{flex:1;display:flex;align-items:center;gap:12px;}
+  .hamburger{display:none;background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px;}
+  .hamburger svg{width:20px;height:20px;}
+  .search-wrap{position:relative;flex:1;max-width:420px;}
+  .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;}
+  .search-icon svg{width:15px;height:15px;}
+  .search-input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);color:var(--text-primary);font-family:var(--font-body);font-size:13.5px;padding:9px 12px 9px 36px;outline:none;transition:border-color var(--transition);}
+  .search-input::placeholder{color:var(--text-muted);}
+  .search-input:focus{border-color:var(--accent-border);}
+  .topbar-right{display:flex;align-items:center;gap:10px;}
+  .sort-select{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-secondary);font-family:var(--font-body);font-size:13px;padding:7px 10px;outline:none;cursor:pointer;}
+  .view-toggle{display:flex;gap:4px;}
+  .view-btn{background:none;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-muted);cursor:pointer;padding:6px 8px;transition:all var(--transition);}
+  .view-btn.active{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent);}
+  .view-btn:hover:not(.active){border-color:var(--border-hover);color:var(--text-secondary);}
+  .view-btn svg{width:15px;height:15px;display:block;}
+
+  .page-content{padding:28px;flex:1;}
+  .page-header{margin-bottom:24px;}
+  .page-title{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--text-primary);letter-spacing:-0.4px;margin-bottom:4px;}
+  .page-subtitle{font-size:14px;color:var(--text-secondary);font-weight:300;}
+
+  .stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px;}
+  .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px;}
+  .stat-value{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:-0.5px;line-height:1;margin-bottom:4px;}
+  .stat-label{font-size:12px;color:var(--text-muted);}
+
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+  .filter-chip{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-family:var(--font-body);font-size:13px;cursor:pointer;transition:all var(--transition);white-space:nowrap;}
+  .filter-chip:hover{border-color:var(--border-hover);color:var(--text-primary);}
+  .filter-chip.active{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent);font-weight:500;}
+  .chip-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+  .video-grid.list-view{grid-template-columns:1fr;}
+  .video-grid.list-view .video-card{display:flex;gap:16px;align-items:flex-start;}
+  .video-grid.list-view .video-thumb-wrap{width:180px;min-width:180px;aspect-ratio:16/9;}
+  .video-grid.list-view .video-body{padding:8px 0;}
+
+  .video-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:transform var(--transition),border-color var(--transition),background var(--transition);position:relative;}
+  .video-card:hover{transform:translateY(-2px);border-color:var(--border-hover);background:var(--bg-card-hover);}
+  .video-card:hover .play-overlay{opacity:1;}
+  .video-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  .video-thumb-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg-elevated);}
+  .video-thumb{width:100%;height:100%;object-fit:cover;display:block;transition:transform 300ms ease;}
+  .video-card:hover .video-thumb{transform:scale(1.03);}
+  .thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg-elevated) 0%,#1a1a2e 100%);}
+  .thumb-placeholder svg{width:32px;height:32px;color:var(--text-muted);}
+  .play-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity var(--transition);}
+  .play-btn-circle{width:48px;height:48px;background:rgba(255,255,255,0.95);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .play-btn-circle svg{width:18px;height:18px;color:#111;margin-left:2px;}
+
+  .source-badge{position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:600;backdrop-filter:blur(8px);}
+  .source-badge.youtube{background:rgba(255,0,0,0.85);color:#fff;}
+  .source-badge.telegram{background:rgba(34,158,217,0.85);color:#fff;}
+  .source-badge svg{width:10px;height:10px;}
+  .duration-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.75);color:#fff;font-size:11px;font-weight:500;padding:2px 7px;border-radius:4px;}
+
+  .video-body{padding:14px 16px 16px;}
+  .video-subject-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+  .video-title{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.45;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .video-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);}
+  .video-meta svg{width:12px;height:12px;}
+  .meta-dot{width:2px;height:2px;border-radius:50%;background:var(--text-muted);}
+  .video-topic-pill{display:inline-block;padding:2px 8px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:99px;font-size:10px;color:var(--text-secondary);margin-top:8px;}
+  .watch-page-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;background:transparent;border:1px solid var(--border);border-radius:99px;color:var(--text-muted);font-family:var(--font-body);font-size:11px;font-weight:500;cursor:pointer;text-decoration:none;transition:all var(--transition);position:absolute;bottom:10px;right:10px;z-index:2;}
+  .watch-page-btn:hover{border-color:var(--accent-border);color:var(--accent);background:var(--accent-glow);}
+  .watch-page-btn svg{width:10px;height:10px;}
+
+  .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center;gap:12px;grid-column:1/-1;}
+  .empty-state svg{width:48px;height:48px;color:var(--text-muted);margin-bottom:8px;}
+  .empty-state h3{font-family:var(--font-display);font-size:17px;color:var(--text-secondary);}
+  .empty-state p{font-size:13px;color:var(--text-muted);max-width:280px;}
+
+  /* loading state */
+  .loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:14px;grid-column:1/-1;}
+  .spinner{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .loading-state p{font-size:13px;color:var(--text-muted);}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 250ms ease;}
+  .modal-overlay.open{opacity:1;pointer-events:all;}
+  .modal{background:var(--bg-card);border:1px solid var(--border-hover);border-radius:var(--radius-xl);width:100%;max-width:820px;max-height:90vh;overflow-y:auto;transform:scale(0.95) translateY(10px);transition:transform 250ms ease;}
+  .modal-overlay.open .modal{transform:scale(1) translateY(0);}
+  .modal-header{display:flex;align-items:flex-start;gap:12px;padding:20px 20px 16px;border-bottom:1px solid var(--border);}
+  .modal-header-text{flex:1;min-width:0;}
+  .modal-subject{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+  .modal-title{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text-primary);line-height:1.35;letter-spacing:-0.2px;}
+  .modal-close{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-secondary);cursor:pointer;padding:6px;flex-shrink:0;transition:all var(--transition);}
+  .modal-close:hover{background:rgba(255,255,255,0.08);color:var(--text-primary);}
+  .modal-close svg{width:16px;height:16px;display:block;}
+  .modal-player{position:relative;aspect-ratio:16/9;background:#000;}
+  .modal-player iframe{width:100%;height:100%;border:none;display:block;}
+  .telegram-note{display:flex;align-items:flex-start;gap:10px;padding:14px 20px;background:rgba(34,158,217,0.08);border-top:1px solid rgba(34,158,217,0.15);}
+  .telegram-note svg{width:16px;height:16px;color:var(--telegram);flex-shrink:0;margin-top:1px;}
+  .telegram-note p{font-size:13px;color:var(--text-secondary);line-height:1.5;}
+  .telegram-note a{color:var(--telegram);text-decoration:none;}
+  .modal-footer{padding:16px 20px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .modal-meta-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-muted);}
+  .modal-meta-item svg{width:13px;height:13px;}
+  .open-external-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:var(--radius-sm);color:var(--accent);font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;transition:background var(--transition);}
+  .open-external-btn:hover{background:rgba(99,102,241,0.25);}
+  .open-external-btn svg{width:13px;height:13px;}
+
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99;}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--bg-elevated);border:1px solid var(--border-hover);border-radius:var(--radius-md);padding:10px 18px;font-size:13px;font-weight:500;color:var(--text-primary);z-index:9999;display:flex;align-items:center;gap:8px;transition:transform 300ms ease,opacity 300ms ease;opacity:0;pointer-events:none;}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  .toast.success{border-color:rgba(34,197,94,0.4);}
+  .toast.success svg{color:var(--success);}
+  .toast svg{width:15px;height:15px;flex-shrink:0;}
+
+  @media(max-width:768px){
+    .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .sidebar-overlay.open{display:block;}
+    .hamburger{display:flex;}
+    .page-content{padding:20px 16px;}
+    .topbar{padding:12px 16px;}
+    .video-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+    .stats-bar{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:480px){
+    .video-grid{grid-template-columns:1fr;}
+    .filter-chip{padding:6px 10px;font-size:12px;}
+  }
+  @media(min-width:1440px){
+    .video-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));}
   }
 </style>
 </head>
 <body>
-
-<!-- SIDEBAR OVERLAY (mobile) -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
     </div>
-    <span class="logo-text">Study<span>Vault</span></span>
+    <span class="logo-text">Free<span>Edu</span></span>
   </div>
-
   <span class="sidebar-section-label">Library</span>
-
-  <button class="nav-item active" onclick="filterBySubject('all', this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-    </svg>
+  <button class="nav-item active" onclick="filterBySubject('all',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
     All Resources
-    <span class="nav-badge" id="allCount">0</span>
+    <span class="nav-badge" id="allCount">—</span>
   </button>
-
   <span class="sidebar-section-label">Subjects</span>
   <div id="sidebarSubjects"></div>
-
   <span class="sidebar-section-label">Filter by Source</span>
-  <button class="nav-item" onclick="filterBySource('all', this)" data-source="all">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8" fill="currentColor" stroke="none"/>
-    </svg>
+  <button class="nav-item" onclick="filterBySource('all',this)" data-source="all">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8" fill="currentColor" stroke="none"/></svg>
     All Videos
   </button>
-  <button class="nav-item" onclick="filterBySource('youtube', this)" data-source="youtube">
+  <button class="nav-item" onclick="filterBySource('youtube',this)" data-source="youtube">
     <svg viewBox="0 0 24 24" fill="#ff4444" stroke="none"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C17.3 2.5 12 2.5 12 2.5s-5.3 0-8.1.2C3.4 2.8 2.4 3 1.5 3.8.6 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.9c0 2 .2 4 .2 4s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1C6.1 19.7 12 19.8 12 19.8s5.3 0 8.1-.3c.5-.1 1.5-.2 2.4-1.1.8-.7 1-2.4 1-2.4s.2-2 .2-4v-1.9c0-2-.2-3.9-.2-3.9zM9.7 13.6V7.2l6.5 3.2-6.5 3.2z"/></svg>
     YouTube
   </button>
-  <button class="nav-item" onclick="filterBySource('telegram', this)" data-source="telegram">
+  <button class="nav-item" onclick="filterBySource('telegram',this)" data-source="telegram">
     <svg viewBox="0 0 24 24" fill="#229ED9" stroke="none"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.9 8.2l-2 9.5c-.1.7-.6.9-1.1.5l-3-2.3-1.5 1.4c-.2.2-.4.3-.7.3l.3-3.1 6.1-5.5c.3-.2-.1-.3-.4-.2L6.7 13.6 3.8 12.7c-.7-.2-.7-.7.1-1l11.5-4.4c.6-.2 1.2.1 1 .9h-.5z"/></svg>
     Telegram
   </button>
-
   <div class="sidebar-footer">
-    <button class="admin-btn" onclick="openAdmin()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"/><path d="M19.1 4.9C17.6 3.4 15.9 2.2 14 1.5l-1.5 2.6c.5.2 1 .5 1.5.8l2.1-1.5c.9.9 1.6 1.9 2.1 3l-1.5 2.1c.3.5.5 1 .7 1.5l2.6.5c.4 1 .6 2 .6 3.1l-2.6.5c-.1.5-.3 1-.6 1.5l1.5 2.1c-.5 1.1-1.2 2.1-2.1 3l-2.1-1.5c-.5.3-1 .5-1.5.7l-.5 2.6c-1 .3-2 .4-3.1.4l-.5-2.6c-.5-.1-1-.3-1.5-.6L7 21c-1.1-.5-2.1-1.2-3-2.1l1.5-2.1c-.3-.5-.6-1-.8-1.5L2 14.8C1.7 13.8 1.5 12.9 1.5 12s.2-1.8.5-2.7l2.6-.5c.2-.5.5-1 .8-1.5L3.9 5.2c.9-.9 1.9-1.6 3-2.1l2.1 1.5c.5-.3 1-.6 1.5-.8L11 1.5C12 1.2 13 1 14 1"/>
-      </svg>
+    <a class="admin-btn" href="admin.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.1 4.9C17.6 3.4 15.9 2.2 14 1.5l-1.5 2.6c.5.2 1 .5 1.5.8l2.1-1.5c.9.9 1.6 1.9 2.1 3l-1.5 2.1c.3.5.5 1 .7 1.5l2.6.5c.4 1 .6 2 .6 3.1l-2.6.5c-.1.5-.3 1-.6 1.5l1.5 2.1c-.5 1.1-1.2 2.1-2.1 3l-2.1-1.5c-.5.3-1 .5-1.5.7l-.5 2.6c-1 .3-2 .4-3.1.4l-.5-2.6c-.5-.1-1-.3-1.5-.6L7 21c-1.1-.5-2.1-1.2-3-2.1l1.5-2.1c-.3-.5-.6-1-.8-1.5L2 14.8C1.7 13.8 1.5 12.9 1.5 12s.2-1.8.5-2.7l2.6-.5c.2-.5.5-1 .8-1.5L3.9 5.2c.9-.9 1.9-1.6 3-2.1l2.1 1.5c.5-.3 1-.6 1.5-.8L11 1.5C12 1.2 13 1 14 1"/></svg>
       Admin Panel
-    </button>
+    </a>
   </div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-left">
       <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="search-wrap">
-        <span class="search-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-        </span>
+        <span class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
         <input class="search-input" type="search" id="searchInput" placeholder="Search videos, topics..." oninput="handleSearch()" autocomplete="off">
       </div>
     </div>
@@ -1124,43 +233,34 @@
         <option value="za">Z → A</option>
       </select>
       <div class="view-toggle">
-        <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid view" aria-label="Grid view">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-          </svg>
+        <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" aria-label="Grid view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         </button>
-        <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List view" aria-label="List view">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
+        <button class="view-btn" id="listViewBtn" onclick="setView('list')" aria-label="List view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- PAGE CONTENT -->
   <div class="page-content">
-
-    <!-- HEADER -->
     <div class="page-header">
       <h1 class="page-title" id="pageTitle">All Resources</h1>
-      <p class="page-subtitle" id="pageSubtitle">Browse your study videos by subject and topic</p>
+      <p class="page-subtitle" id="pageSubtitle">Loading videos from the library…</p>
     </div>
-
-    <!-- STATS -->
     <div class="stats-bar" id="statsBar"></div>
-
-    <!-- FILTER CHIPS (topic) -->
     <div class="filter-bar" id="filterBar"></div>
-
-    <!-- VIDEO GRID -->
-    <div class="video-grid" id="videoGrid"></div>
-
+    <div class="video-grid" id="videoGrid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Fetching videos…</p>
+      </div>
+    </div>
   </div>
 </main>
 
 <!-- VIDEO MODAL -->
-<div class="modal-overlay" id="videoModal" onclick="handleModalClick(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal-overlay" id="videoModal" onclick="handleModalClick(event)" role="dialog" aria-modal="true">
   <div class="modal" id="modalInner">
     <div class="modal-header">
       <div class="modal-header-text">
@@ -1168,9 +268,7 @@
         <div class="modal-title" id="modalTitle"></div>
       </div>
       <button class="modal-close" onclick="closeModal()" aria-label="Close">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     <div class="modal-player" id="modalPlayer"></div>
@@ -1182,765 +280,217 @@
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
-<div class="admin-panel" id="adminPanel">
-  <div class="admin-backdrop" onclick="closeAdmin()"></div>
-  <div class="admin-drawer">
-    <div class="admin-header">
-      <h2>Admin Panel</h2>
-      <button class="modal-close" onclick="closeAdmin()" aria-label="Close admin">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <div class="admin-body">
-
-      <div class="form-group">
-        <label class="form-label">Video Source</label>
-        <div class="source-toggle">
-          <div class="source-option yt selected" id="srcYT" onclick="selectSource('youtube')">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C17.3 2.5 12 2.5 12 2.5s-5.3 0-8.1.2C3.4 2.8 2.4 3 1.5 3.8.6 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.9c0 2 .2 4 .2 4s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1C6.1 19.7 12 19.8 12 19.8s5.3 0 8.1-.3c.5-.1 1.5-.2 2.4-1.1.8-.7 1-2.4 1-2.4s.2-2 .2-4v-1.9c0-2-.2-3.9-.2-3.9zM9.7 13.6V7.2l6.5 3.2-6.5 3.2z"/></svg>
-            YouTube
-          </div>
-          <div class="source-option tg" id="srcTG" onclick="selectSource('telegram')">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.9 8.2l-2 9.5c-.1.7-.6.9-1.1.5l-3-2.3-1.5 1.4c-.2.2-.4.3-.7.3l.3-3.1 6.1-5.5c.3-.2-.1-.3-.4-.2L6.7 13.6 3.8 12.7c-.7-.2-.7-.7.1-1l11.5-4.4c.6-.2 1.2.1 1 .9h-.5z"/></svg>
-            Telegram
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" id="urlLabel">YouTube URL or Video ID</label>
-        <input class="form-input" type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=..." autocomplete="off">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Title</label>
-        <input class="form-input" type="text" id="videoTitle" placeholder="e.g. Photosynthesis Explained" autocomplete="off">
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Subject</label>
-          <input class="form-input" type="text" id="videoSubject" placeholder="e.g. Biology" list="subjectSuggestions" autocomplete="off">
-          <datalist id="subjectSuggestions"></datalist>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Topic</label>
-          <input class="form-input" type="text" id="videoTopic" placeholder="e.g. Cell Biology" autocomplete="off">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Duration (optional)</label>
-          <input class="form-input" type="text" id="videoDuration" placeholder="e.g. 14:32" autocomplete="off">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Channel / Source Name</label>
-          <input class="form-input" type="text" id="videoChannel" placeholder="e.g. Mr. Smith" autocomplete="off">
-        </div>
-      </div>
-
-      <button class="add-btn" onclick="addVideo()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
-        </svg>
-        Add Video
-      </button>
-
-      <hr class="admin-divider">
-
-      <div>
-        <div class="manage-section-title">Manage Videos (<span id="manageCount">0</span>)</div>
-        <div class="manage-list" id="manageList"></div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- TOAST -->
 <div class="toast" id="toast">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="toastIcon">
-    <polyline points="20,6 9,17 4,12"/>
-  </svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="toastIcon"><polyline points="20,6 9,17 4,12"/></svg>
   <span id="toastMsg"></span>
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-//  DATA STORE
-// ─────────────────────────────────────────────
-const STORAGE_KEY = 'freeedu_videos_v1';
+const GITHUB_USER = 'damarasooriya';
+const GITHUB_REPO = 'freeedu';
+const DATA_FILE   = 'data/videos.json';
+const RAW_URL     = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${DATA_FILE}`;
 
-const SAMPLE_VIDEOS = [
-  {
-    id: 'sv_' + Date.now() + '_1',
-    source: 'youtube',
-    videoId: 'UIKGV2cTgqA',
-    url: 'https://www.youtube.com/watch?v=UIKGV2cTgqA',
-    title: 'Photosynthesis — Light-Dependent Reactions',
-    subject: 'Biology',
-    topic: 'Cell Biology',
-    duration: '14:22',
-    channel: 'AQA Science',
-    addedAt: Date.now() - 86400000 * 3
-  },
-  {
-    id: 'sv_' + Date.now() + '_2',
-    source: 'youtube',
-    videoId: 'NrvU1aFOiKw',
-    url: 'https://www.youtube.com/watch?v=NrvU1aFOiKw',
-    title: 'Integration by Parts — Step-by-Step',
-    subject: 'Mathematics',
-    topic: 'Calculus',
-    duration: '18:05',
-    channel: 'Exam Solutions',
-    addedAt: Date.now() - 86400000 * 2
-  },
-  {
-    id: 'sv_' + Date.now() + '_3',
-    source: 'youtube',
-    videoId: 'QnQe0xW_JY4',
-    url: 'https://www.youtube.com/watch?v=QnQe0xW_JY4',
-    title: 'Macbeth — Key Themes & Quotes',
-    subject: 'English Literature',
-    topic: 'Shakespeare',
-    duration: '22:10',
-    channel: 'Mr Bruff',
-    addedAt: Date.now() - 86400000
-  },
-  {
-    id: 'sv_' + Date.now() + '_4',
-    source: 'youtube',
-    videoId: 'M7lc1UVf-VE',
-    url: 'https://www.youtube.com/watch?v=M7lc1UVf-VE',
-    title: 'Supply, Demand & Market Equilibrium',
-    subject: 'Economics',
-    topic: 'Microeconomics',
-    duration: '16:44',
-    channel: 'EconPlusDal',
-    addedAt: Date.now() - 3600000 * 5
-  },
-  {
-    id: 'sv_' + Date.now() + '_5',
-    source: 'youtube',
-    videoId: '8mAITcNt710',
-    url: 'https://www.youtube.com/watch?v=8mAITcNt710',
-    title: 'Newton\'s Laws of Motion — Full Revision',
-    subject: 'Physics',
-    topic: 'Mechanics',
-    duration: '20:33',
-    channel: 'Physics & Maths Tutor',
-    addedAt: Date.now() - 3600000 * 10
-  },
-  {
-    id: 'sv_' + Date.now() + '_6',
-    source: 'youtube',
-    videoId: 'jOAU81jdi-c',
-    url: 'https://www.youtube.com/watch?v=jOAU81jdi-c',
-    title: 'Organic Chemistry — Functional Groups',
-    subject: 'Chemistry',
-    topic: 'Organic Chemistry',
-    duration: '25:18',
-    channel: 'ChemSimplified',
-    addedAt: Date.now() - 3600000 * 2
-  }
-];
-
-// ─────────────────────────────────────────────
-//  STATE
-// ─────────────────────────────────────────────
 let state = {
   videos: [],
   activeSubject: 'all',
   activeSource: 'all',
   activeTopic: 'all',
   searchQuery: '',
-  viewMode: 'grid',
-  currentSource: 'youtube'
+  viewMode: 'grid'
 };
 
-// ─────────────────────────────────────────────
-//  PERSISTENCE
-// ─────────────────────────────────────────────
-function loadData() {
+// ── FETCH videos from GitHub raw ──
+async function loadVideos() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (parsed && Array.isArray(parsed.videos) && parsed.videos.length > 0) {
-        state.videos = parsed.videos;
-        return;
-      }
-    }
-  } catch (e) { /* ignore */ }
-  state.videos = [...SAMPLE_VIDEOS];
-  saveData();
-}
-
-function saveData() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ videos: state.videos }));
-  } catch (e) { /* ignore */ }
-}
-
-// ─────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────
-function generateId() {
-  return 'sv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-}
-
-function extractYouTubeId(input) {
-  if (!input) return null;
-  input = input.trim();
-  if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
-  const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
-    /v=([a-zA-Z0-9_-]{11})/
-  ];
-  for (const p of patterns) {
-    const m = input.match(p);
-    if (m) return m[1];
+    const res = await fetch(RAW_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    state.videos = Array.isArray(data.videos) ? data.videos : [];
+  } catch(e) {
+    state.videos = [];
+    showToast('Could not load videos from GitHub', false);
   }
-  return null;
+  renderAll();
 }
 
-function extractTelegramInfo(input) {
-  if (!input) return null;
-  input = input.trim();
-  const m = input.match(/t\.me\/([^\/]+)\/(\d+)/);
-  if (m) return { channel: m[1], msgId: m[2] };
-  return null;
-}
-
-function getYouTubeThumbnail(videoId) {
-  return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
-}
-
-function getSubjectColor(subject) {
-  const colors = {
-    'biology': '#22c55e',
-    'chemistry': '#f59e0b',
-    'physics': '#3b82f6',
-    'mathematics': '#8b5cf6',
-    'math': '#8b5cf6',
-    'maths': '#8b5cf6',
-    'english': '#ec4899',
-    'english literature': '#ec4899',
-    'economics': '#14b8a6',
-    'history': '#f97316',
-    'geography': '#10b981',
-    'computer science': '#6366f1',
-    'psychology': '#e879f9',
-    'sociology': '#fb923c'
-  };
-  return colors[(subject || '').toLowerCase()] || '#6366f1';
+function getSubjectColor(s) {
+  const c = {'biology':'#22c55e','chemistry':'#f59e0b','physics':'#3b82f6','mathematics':'#8b5cf6','math':'#8b5cf6','maths':'#8b5cf6','english':'#ec4899','english literature':'#ec4899','economics':'#14b8a6','history':'#f97316','geography':'#10b981','computer science':'#6366f1','psychology':'#e879f9','sociology':'#fb923c'};
+  return c[(s||'').toLowerCase()] || '#6366f1';
 }
 
 function formatDate(ts) {
-  const d = new Date(ts);
-  const now = new Date();
-  const diff = Math.floor((now - d) / 1000);
-  if (diff < 60) return 'Just now';
-  if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
-  if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
-  if (diff < 604800) return Math.floor(diff / 86400) + 'd ago';
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  const d=new Date(ts),now=new Date(),diff=Math.floor((now-d)/1000);
+  if(diff<60)return'Just now';
+  if(diff<3600)return Math.floor(diff/60)+'m ago';
+  if(diff<86400)return Math.floor(diff/3600)+'h ago';
+  if(diff<604800)return Math.floor(diff/86400)+'d ago';
+  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
 }
 
-function getUniqueSubjects() {
-  const subs = [...new Set(state.videos.map(v => v.subject).filter(Boolean))];
-  return subs.sort();
+function getUniqueSubjects(){return[...new Set(state.videos.map(v=>v.subject).filter(Boolean))].sort();}
+function getTopicsForSubject(sub){
+  const vids=sub==='all'?state.videos:state.videos.filter(v=>v.subject===sub);
+  return[...new Set(vids.map(v=>v.topic).filter(Boolean))].sort();
 }
 
-function getTopicsForSubject(subject) {
-  const vids = subject === 'all' ? state.videos : state.videos.filter(v => v.subject === subject);
-  const topics = [...new Set(vids.map(v => v.topic).filter(Boolean))];
-  return topics.sort();
-}
-
-// ─────────────────────────────────────────────
-//  FILTER & SEARCH
-// ─────────────────────────────────────────────
-function getFilteredVideos() {
-  let vids = [...state.videos];
-
-  if (state.activeSubject !== 'all') {
-    vids = vids.filter(v => v.subject === state.activeSubject);
-  }
-  if (state.activeSource !== 'all') {
-    vids = vids.filter(v => v.source === state.activeSource);
-  }
-  if (state.activeTopic !== 'all') {
-    vids = vids.filter(v => v.topic === state.activeTopic);
-  }
-  if (state.searchQuery) {
-    const q = state.searchQuery.toLowerCase();
-    vids = vids.filter(v =>
-      (v.title || '').toLowerCase().includes(q) ||
-      (v.subject || '').toLowerCase().includes(q) ||
-      (v.topic || '').toLowerCase().includes(q) ||
-      (v.channel || '').toLowerCase().includes(q)
-    );
-  }
-
-  const sort = document.getElementById('sortSelect').value;
-  if (sort === 'newest') vids.sort((a, b) => b.addedAt - a.addedAt);
-  else if (sort === 'oldest') vids.sort((a, b) => a.addedAt - b.addedAt);
-  else if (sort === 'az') vids.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-  else if (sort === 'za') vids.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
-
+function getFilteredVideos(){
+  let vids=[...state.videos];
+  if(state.activeSubject!=='all')vids=vids.filter(v=>v.subject===state.activeSubject);
+  if(state.activeSource!=='all')vids=vids.filter(v=>v.source===state.activeSource);
+  if(state.activeTopic!=='all')vids=vids.filter(v=>v.topic===state.activeTopic);
+  if(state.searchQuery){const q=state.searchQuery.toLowerCase();vids=vids.filter(v=>(v.title||'').toLowerCase().includes(q)||(v.subject||'').toLowerCase().includes(q)||(v.topic||'').toLowerCase().includes(q)||(v.channel||'').toLowerCase().includes(q));}
+  const sort=document.getElementById('sortSelect').value;
+  if(sort==='newest')vids.sort((a,b)=>b.addedAt-a.addedAt);
+  else if(sort==='oldest')vids.sort((a,b)=>a.addedAt-b.addedAt);
+  else if(sort==='az')vids.sort((a,b)=>(a.title||'').localeCompare(b.title||''));
+  else if(sort==='za')vids.sort((a,b)=>(b.title||'').localeCompare(a.title||''));
   return vids;
 }
 
-// ─────────────────────────────────────────────
-//  RENDER — SIDEBAR SUBJECTS
-// ─────────────────────────────────────────────
-function renderSidebar() {
-  const container = document.getElementById('sidebarSubjects');
-  const subjects = getUniqueSubjects();
-
-  container.innerHTML = subjects.map(sub => {
-    const count = state.videos.filter(v => v.subject === sub).length;
-    const color = getSubjectColor(sub);
-    const isActive = state.activeSubject === sub;
-    return `
-      <button class="nav-item ${isActive ? 'active' : ''}" onclick="filterBySubject('${sub.replace(/'/g, "\\'")}', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3" fill="${color}" stroke="${color}"/>
-          <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-        </svg>
-        ${sub}
-        <span class="nav-badge">${count}</span>
-      </button>
-    `;
+function renderSidebar(){
+  const container=document.getElementById('sidebarSubjects');
+  container.innerHTML=getUniqueSubjects().map(sub=>{
+    const count=state.videos.filter(v=>v.subject===sub).length;
+    const color=getSubjectColor(sub);
+    return`<button class="nav-item${state.activeSubject===sub?' active':''}" onclick="filterBySubject('${sub.replace(/'/g,"\\'")}',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3" fill="${color}" stroke="${color}"/></svg>${sub}<span class="nav-badge">${count}</span></button>`;
   }).join('');
-
-  document.getElementById('allCount').textContent = state.videos.length;
+  document.getElementById('allCount').textContent=state.videos.length;
 }
 
-// ─────────────────────────────────────────────
-//  RENDER — STATS
-// ─────────────────────────────────────────────
-function renderStats() {
-  const filtered = getFilteredVideos();
-  const ytCount = filtered.filter(v => v.source === 'youtube').length;
-  const tgCount = filtered.filter(v => v.source === 'telegram').length;
-  const subjects = getUniqueSubjects().length;
-
-  document.getElementById('statsBar').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-value">${filtered.length}</div>
-      <div class="stat-label">Videos shown</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value stat-accent">${subjects}</div>
-      <div class="stat-label">Subjects</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" style="color:#ff4444">${ytCount}</div>
-      <div class="stat-label">YouTube</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value" style="color:var(--telegram)">${tgCount}</div>
-      <div class="stat-label">Telegram</div>
-    </div>
-  `;
+function renderStats(){
+  const f=getFilteredVideos();
+  const yt=f.filter(v=>v.source==='youtube').length;
+  const tg=f.filter(v=>v.source==='telegram').length;
+  document.getElementById('statsBar').innerHTML=`
+    <div class="stat-card"><div class="stat-value">${f.length}</div><div class="stat-label">Videos shown</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--accent)">${getUniqueSubjects().length}</div><div class="stat-label">Subjects</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:#ff4444">${yt}</div><div class="stat-label">YouTube</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--telegram)">${tg}</div><div class="stat-label">Telegram</div></div>`;
 }
 
-// ─────────────────────────────────────────────
-//  RENDER — TOPIC FILTER CHIPS
-// ─────────────────────────────────────────────
-function renderFilterChips() {
-  const topics = getTopicsForSubject(state.activeSubject);
-  const bar = document.getElementById('filterBar');
-
-  if (topics.length === 0) { bar.innerHTML = ''; return; }
-
-  const chips = [
-    `<button class="filter-chip ${state.activeTopic === 'all' ? 'active' : ''}" onclick="filterByTopic('all', this)">
-      All Topics
-    </button>`
-  ];
-
-  topics.forEach(t => {
-    chips.push(`
-      <button class="filter-chip ${state.activeTopic === t ? 'active' : ''}" onclick="filterByTopic('${t.replace(/'/g, "\\'")}', this)">
-        <span class="chip-dot"></span>${t}
-      </button>
-    `);
-  });
-
-  bar.innerHTML = chips.join('');
+function renderFilterChips(){
+  const topics=getTopicsForSubject(state.activeSubject);
+  const bar=document.getElementById('filterBar');
+  if(!topics.length){bar.innerHTML='';return;}
+  bar.innerHTML=[`<button class="filter-chip${state.activeTopic==='all'?' active':''}" onclick="filterByTopic('all',this)">All Topics</button>`,...topics.map(t=>`<button class="filter-chip${state.activeTopic===t?' active':''}" onclick="filterByTopic('${t.replace(/'/g,"\\'")}',this)"><span class="chip-dot"></span>${t}</button>`)].join('');
 }
 
-// ─────────────────────────────────────────────
-//  RENDER — VIDEO CARD
-// ─────────────────────────────────────────────
-function buildVideoCard(v) {
-  const color = getSubjectColor(v.subject);
-  const isYT = v.source === 'youtube';
+function buildVideoCard(v){
+  const color=getSubjectColor(v.subject);
+  const isYT=v.source==='youtube';
+  let thumbHTML=isYT&&v.videoId
+    ?`<img class="video-thumb" src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="thumb-placeholder" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5,3 19,12 5,21"/></svg></div>`
+    :`<div class="thumb-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5,3 19,12 5,21"/></svg></div>`;
+  const badge=isYT
+    ?`<span class="source-badge youtube"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C17.3 2.5 12 2.5 12 2.5s-5.3 0-8.1.2C3.4 2.8 2.4 3 1.5 3.8.6 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.9c0 2 .2 4 .2 4s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1C6.1 19.7 12 19.8 12 19.8s5.3 0 8.1-.3c.5-.1 1.5-.2 2.4-1.1.8-.7 1-2.4 1-2.4s.2-2 .2-4v-1.9c0-2-.2-3.9-.2-3.9zM9.7 13.6V7.2l6.5 3.2-6.5 3.2z"/></svg>YT</span>`
+    :`<span class="source-badge telegram"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.9 8.2l-2 9.5c-.1.7-.6.9-1.1.5l-3-2.3-1.5 1.4c-.2.2-.4.3-.7.3l.3-3.1 6.1-5.5c.3-.2-.1-.3-.4-.2L6.7 13.6 3.8 12.7c-.7-.2-.7-.7.1-1l11.5-4.4c.6-.2 1.2.1 1 .9h-.5z"/></svg>TG</span>`;
+  return`<div class="video-card" onclick="openVideo('${v.id}')" tabindex="0" role="button" aria-label="Watch ${v.title}" onkeydown="if(event.key==='Enter'||event.key===' ')openVideo('${v.id}')">
+    <div class="video-thumb-wrap">${thumbHTML}<div class="play-overlay"><div class="play-btn-circle"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div></div>${badge}${v.duration?`<span class="duration-badge">${v.duration}</span>`:''}</div>
+    <div class="video-body">
+      <div class="video-subject-tag" style="color:${color}">${v.subject||'Uncategorised'}</div>
+      <div class="video-title">${v.title||'Untitled'}</div>
+      <div class="video-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>${formatDate(v.addedAt)}${v.channel?`<span class="meta-dot"></span>${v.channel}`:''}</div>
+      ${v.topic?`<span class="video-topic-pill">${v.topic}</span>`:''}
+    </div>
+    <a class="watch-page-btn" href="watch.html?v=${v.id}" title="Open full page" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Full page</a>
+  </div>`;
+}
 
-  let thumbHTML = '';
-  if (isYT && v.videoId) {
-    thumbHTML = `<img class="video-thumb" src="${getYouTubeThumbnail(v.videoId)}" alt="${v.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="thumb-placeholder" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,3 19,12 5,21"/></svg>
-      </div>`;
+function renderVideos(){
+  const grid=document.getElementById('videoGrid');
+  const filtered=getFilteredVideos();
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>No videos found</h3><p>Try adjusting your filters, or add new videos via the admin panel.</p></div>`;
   } else {
-    thumbHTML = `<div class="thumb-placeholder">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5,3 19,12 5,21"/></svg>
-    </div>`;
+    grid.innerHTML=filtered.map(buildVideoCard).join('');
   }
-
-  const sourceBadge = isYT
-    ? `<span class="source-badge youtube"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M23.5 6.2s-.2-1.7-1-2.4c-.9-1-1.9-1-2.4-1.1C17.3 2.5 12 2.5 12 2.5s-5.3 0-8.1.2C3.4 2.8 2.4 3 1.5 3.8.6 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.9c0 2 .2 4 .2 4s.2 1.7 1 2.4c.9 1 2.1.9 2.7 1C6.1 19.7 12 19.8 12 19.8s5.3 0 8.1-.3c.5-.1 1.5-.2 2.4-1.1.8-.7 1-2.4 1-2.4s.2-2 .2-4v-1.9c0-2-.2-3.9-.2-3.9zM9.7 13.6V7.2l6.5 3.2-6.5 3.2z"/></svg>YT</span>`
-    : `<span class="source-badge telegram"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.9 8.2l-2 9.5c-.1.7-.6.9-1.1.5l-3-2.3-1.5 1.4c-.2.2-.4.3-.7.3l.3-3.1 6.1-5.5c.3-.2-.1-.3-.4-.2L6.7 13.6 3.8 12.7c-.7-.2-.7-.7.1-1l11.5-4.4c.6-.2 1.2.1 1 .9h-.5z"/></svg>TG</span>`;
-
-  const durationBadge = v.duration ? `<span class="duration-badge">${v.duration}</span>` : '';
-
-  return `
-    <div class="video-card" onclick="openVideo('${v.id}')" tabindex="0" role="button" aria-label="Watch ${v.title}" onkeydown="if(event.key==='Enter'||event.key===' ')openVideo('${v.id}')">
-      <div class="video-thumb-wrap">
-        ${thumbHTML}
-        <div class="play-overlay">
-          <div class="play-btn-circle">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-        </div>
-        ${sourceBadge}
-        ${durationBadge}
-      </div>
-      <div class="video-body">
-        <div class="video-subject-tag" style="color:${color}">
-          ${v.subject || 'Uncategorised'}
-        </div>
-        <div class="video-title">${v.title || 'Untitled'}</div>
-        <div class="video-meta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-          ${formatDate(v.addedAt)}
-          ${v.channel ? `<span class="meta-dot"></span>${v.channel}` : ''}
-        </div>
-        ${v.topic ? `<span class="video-topic-pill">${v.topic}</span>` : ''}
-      </div>
-      <a class="watch-page-btn" href="watch.html?v=${v.id}" title="Open in full page" onclick="event.stopPropagation()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Full page
-      </a>
-    </div>
-  `;
-}
-
-// ─────────────────────────────────────────────
-//  RENDER — MAIN GRID
-// ─────────────────────────────────────────────
-function renderVideos() {
-  const grid = document.getElementById('videoGrid');
-  const filtered = getFilteredVideos();
-
-  if (filtered.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <h3>No videos found</h3>
-        <p>Try adjusting your search or filters, or add new videos via the admin panel.</p>
-      </div>
-    `;
-    return;
-  }
-
-  grid.innerHTML = filtered.map(v => buildVideoCard(v)).join('');
   renderStats();
 }
 
-// ─────────────────────────────────────────────
-//  RENDER ALL
-// ─────────────────────────────────────────────
-function renderAll() {
-  renderSidebar();
-  renderFilterChips();
-  renderVideos();
-  renderStats();
+function renderAll(){
+  renderSidebar();renderFilterChips();renderVideos();
+  document.getElementById('pageSubtitle').textContent='Browse your study videos by subject and topic';
 }
 
-// ─────────────────────────────────────────────
-//  FILTER ACTIONS
-// ─────────────────────────────────────────────
-function filterBySubject(subject, el) {
-  state.activeSubject = subject;
-  state.activeTopic = 'all';
-
-  // update sidebar active state
-  document.querySelectorAll('.sidebar .nav-item').forEach(btn => {
-    if (!btn.dataset.source) btn.classList.remove('active');
-  });
-  if (el) el.classList.add('active');
-
-  const titles = { all: 'All Resources' };
-  document.getElementById('pageTitle').textContent = titles[subject] || subject;
-  document.getElementById('pageSubtitle').textContent =
-    subject === 'all' ? 'Browse your study videos by subject and topic'
-    : `${state.videos.filter(v => v.subject === subject).length} videos in ${subject}`;
-
-  renderAll();
-  if (window.innerWidth <= 768) closeSidebar();
+function filterBySubject(sub,el){
+  state.activeSubject=sub;state.activeTopic='all';
+  document.querySelectorAll('.sidebar .nav-item').forEach(b=>{if(!b.dataset.source)b.classList.remove('active');});
+  if(el)el.classList.add('active');
+  document.getElementById('pageTitle').textContent=sub==='all'?'All Resources':sub;
+  document.getElementById('pageSubtitle').textContent=sub==='all'?'Browse your study videos by subject and topic':`${state.videos.filter(v=>v.subject===sub).length} videos in ${sub}`;
+  renderAll();if(window.innerWidth<=768)closeSidebar();
 }
 
-function filterBySource(src, el) {
-  state.activeSource = src;
-  document.querySelectorAll('[data-source]').forEach(b => b.classList.remove('active'));
-  if (el) el.classList.add('active');
-  renderVideos();
-  if (window.innerWidth <= 768) closeSidebar();
+function filterBySource(src,el){
+  state.activeSource=src;
+  document.querySelectorAll('[data-source]').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderVideos();if(window.innerWidth<=768)closeSidebar();
 }
 
-function filterByTopic(topic, el) {
-  state.activeTopic = topic;
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  if (el) el.classList.add('active');
+function filterByTopic(topic,el){
+  state.activeTopic=topic;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  if(el)el.classList.add('active');
   renderVideos();
 }
 
-function handleSearch() {
-  state.searchQuery = document.getElementById('searchInput').value.trim();
-  renderVideos();
+function handleSearch(){state.searchQuery=document.getElementById('searchInput').value.trim();renderVideos();}
+
+function setView(mode){
+  state.viewMode=mode;
+  document.getElementById('videoGrid').classList.toggle('list-view',mode==='list');
+  document.getElementById('gridViewBtn').classList.toggle('active',mode==='grid');
+  document.getElementById('listViewBtn').classList.toggle('active',mode==='list');
 }
 
-// ─────────────────────────────────────────────
-//  VIEW TOGGLE
-// ─────────────────────────────────────────────
-function setView(mode) {
-  state.viewMode = mode;
-  const grid = document.getElementById('videoGrid');
-  grid.classList.toggle('list-view', mode === 'list');
-  document.getElementById('gridViewBtn').classList.toggle('active', mode === 'grid');
-  document.getElementById('listViewBtn').classList.toggle('active', mode === 'list');
-}
-
-// ─────────────────────────────────────────────
-//  MODAL — OPEN VIDEO
-// ─────────────────────────────────────────────
-function openVideo(id) {
-  const v = state.videos.find(x => x.id === id);
-  if (!v) return;
-
-  document.getElementById('modalSubject').textContent = (v.subject || '') + (v.topic ? ' · ' + v.topic : '');
-  document.getElementById('modalTitle').textContent = v.title || 'Untitled';
-
-  const player = document.getElementById('modalPlayer');
-  const tgNote = document.getElementById('modalTelegramNote');
-
-  if (v.source === 'youtube' && v.videoId) {
-    player.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.videoId}?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${v.title}"></iframe>`;
-    tgNote.style.display = 'none';
-  } else if (v.source === 'telegram') {
-    const tgInfo = extractTelegramInfo(v.url);
-    if (tgInfo) {
-      player.innerHTML = `<iframe src="https://t.me/${tgInfo.channel}/${tgInfo.msgId}?embed=1&mode=tme" allowfullscreen allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-popups" title="${v.title}"></iframe>`;
-      document.getElementById('telegramLink').href = v.url;
-      tgNote.style.display = 'flex';
-    } else {
-      player.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--text-muted);">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5,3 19,12 5,21"/></svg>
-        <p style="font-size:14px;">Unable to embed this video</p>
-        <a href="${v.url}" target="_blank" rel="noopener" style="color:var(--telegram);font-size:13px;">Open in Telegram →</a>
-      </div>`;
-      document.getElementById('telegramLink').href = v.url;
-      tgNote.style.display = 'flex';
-    }
+function openVideo(id){
+  const v=state.videos.find(x=>x.id===id);if(!v)return;
+  document.getElementById('modalSubject').textContent=(v.subject||'')+(v.topic?' · '+v.topic:'');
+  document.getElementById('modalTitle').textContent=v.title||'Untitled';
+  const player=document.getElementById('modalPlayer');
+  const tgNote=document.getElementById('modalTelegramNote');
+  if(v.source==='youtube'&&v.videoId){
+    player.innerHTML=`<iframe src="https://www.youtube.com/embed/${v.videoId}?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen title="${v.title}"></iframe>`;
+    tgNote.style.display='none';
+  } else {
+    const m=v.url&&v.url.match(/t\.me\/([^\/]+)\/(\d+)/);
+    if(m){player.innerHTML=`<iframe src="https://t.me/${m[1]}/${m[2]}?embed=1&mode=tme" allowfullscreen allow="encrypted-media" sandbox="allow-same-origin allow-scripts allow-popups" title="${v.title}"></iframe>`;}
+    document.getElementById('telegramLink').href=v.url||'#';
+    tgNote.style.display='flex';
   }
-
-  const footer = document.getElementById('modalFooter');
-  footer.innerHTML = `
-    ${v.channel ? `<span class="modal-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>${v.channel}</span>` : ''}
-    ${v.duration ? `<span class="modal-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>${v.duration}</span>` : ''}
-    <span class="modal-meta-item" style="color:var(--text-muted);font-size:11px;">Added ${formatDate(v.addedAt)}</span>
-    <a class="open-external-btn" style="margin-left:auto" href="watch.html?v=${v.id}">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      Full Page
-    </a>
-    <a class="open-external-btn" href="${v.url}" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Open Original
-    </a>
-  `;
-
+  document.getElementById('modalFooter').innerHTML=`
+    ${v.channel?`<span class="modal-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>${v.channel}</span>`:''}
+    ${v.duration?`<span class="modal-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>${v.duration}</span>`:''}
+    <a class="open-external-btn" style="margin-left:auto" href="watch.html?v=${v.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Full Page</a>
+    <a class="open-external-btn" href="${v.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open Original</a>`;
   document.getElementById('videoModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
 
-function closeModal() {
+function closeModal(){
   document.getElementById('videoModal').classList.remove('open');
-  document.body.style.overflow = '';
-  setTimeout(() => {
-    document.getElementById('modalPlayer').innerHTML = '';
-  }, 300);
+  document.body.style.overflow='';
+  setTimeout(()=>{document.getElementById('modalPlayer').innerHTML='';},300);
 }
 
-function handleModalClick(e) {
-  if (e.target === document.getElementById('videoModal')) closeModal();
+function handleModalClick(e){if(e.target===document.getElementById('videoModal'))closeModal();}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}
+
+function showToast(msg,success=true){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.className='toast'+(success?' success':'');
+  document.getElementById('toastIcon').innerHTML=success?`<polyline points="20,6 9,17 4,12"/>`:`<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/>`;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeModal();
-    closeAdmin();
-  }
-});
-
-// ─────────────────────────────────────────────
-//  ADMIN PANEL
-// ─────────────────────────────────────────────
-function openAdmin() {
-  renderManageList();
-  updateSubjectSuggestions();
-  document.getElementById('adminPanel').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeAdmin() {
-  document.getElementById('adminPanel').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function selectSource(src) {
-  state.currentSource = src;
-  document.getElementById('srcYT').classList.toggle('selected', src === 'youtube');
-  document.getElementById('srcTG').classList.toggle('selected', src === 'telegram');
-  document.getElementById('urlLabel').textContent =
-    src === 'youtube' ? 'YouTube URL or Video ID' : 'Telegram Message URL (t.me/...)';
-  document.getElementById('videoUrl').placeholder =
-    src === 'youtube' ? 'https://youtube.com/watch?v=...' : 'https://t.me/channel/123';
-}
-
-function updateSubjectSuggestions() {
-  const dl = document.getElementById('subjectSuggestions');
-  dl.innerHTML = getUniqueSubjects().map(s => `<option value="${s}">`).join('');
-}
-
-function addVideo() {
-  const url = document.getElementById('videoUrl').value.trim();
-  const title = document.getElementById('videoTitle').value.trim();
-  const subject = document.getElementById('videoSubject').value.trim();
-  const topic = document.getElementById('videoTopic').value.trim();
-  const duration = document.getElementById('videoDuration').value.trim();
-  const channel = document.getElementById('videoChannel').value.trim();
-
-  if (!url) { showToast('Please enter a URL or Video ID', false); return; }
-  if (!title) { showToast('Please enter a title', false); return; }
-  if (!subject) { showToast('Please enter a subject', false); return; }
-
-  let videoId = null;
-  const src = state.currentSource;
-
-  if (src === 'youtube') {
-    videoId = extractYouTubeId(url);
-    if (!videoId) { showToast('Invalid YouTube URL or ID', false); return; }
-  }
-
-  const newVideo = {
-    id: generateId(),
-    source: src,
-    videoId: videoId,
-    url: src === 'youtube' ? `https://www.youtube.com/watch?v=${videoId}` : url,
-    title, subject, topic, duration, channel,
-    addedAt: Date.now()
-  };
-
-  state.videos.unshift(newVideo);
-  saveData();
-  renderAll();
-  renderManageList();
-  updateSubjectSuggestions();
-
-  // clear form
-  ['videoUrl','videoTitle','videoSubject','videoTopic','videoDuration','videoChannel']
-    .forEach(id => { document.getElementById(id).value = ''; });
-
-  showToast('Video added successfully!', true);
-}
-
-function deleteVideo(id) {
-  const v = state.videos.find(x => x.id === id);
-  if (!v) return;
-  if (!confirm(`Delete "${v.title}"?`)) return;
-  state.videos = state.videos.filter(x => x.id !== id);
-  saveData();
-  renderAll();
-  renderManageList();
-  showToast('Video removed', true);
-}
-
-function renderManageList() {
-  const list = document.getElementById('manageList');
-  const count = document.getElementById('manageCount');
-  count.textContent = state.videos.length;
-
-  if (state.videos.length === 0) {
-    list.innerHTML = `<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0;">No videos yet. Add one above!</p>`;
-    return;
-  }
-
-  list.innerHTML = state.videos.map(v => `
-    <div class="manage-item">
-      <div class="manage-item-info">
-        <div class="manage-item-title">${v.title || 'Untitled'}</div>
-        <div class="manage-item-sub">${v.subject || ''}${v.topic ? ' · ' + v.topic : ''} · ${v.source === 'youtube' ? 'YouTube' : 'Telegram'}</div>
-      </div>
-      <button class="delete-btn" onclick="deleteVideo('${v.id}')" title="Delete" aria-label="Delete ${v.title}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14H6L5,6"/><path d="M10,11v6M14,11v6"/><path d="M9,6V4h6v2"/>
-        </svg>
-      </button>
-    </div>
-  `).join('');
-}
-
-// ─────────────────────────────────────────────
-//  SIDEBAR MOBILE
-// ─────────────────────────────────────────────
-function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
-  const ov = document.getElementById('sidebarOverlay');
-  sb.classList.toggle('open');
-  ov.classList.toggle('open');
-}
-
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-}
-
-// ─────────────────────────────────────────────
-//  TOAST
-// ─────────────────────────────────────────────
-function showToast(msg, success = true) {
-  const t = document.getElementById('toast');
-  const icon = document.getElementById('toastIcon');
-  document.getElementById('toastMsg').textContent = msg;
-  t.className = 'toast' + (success ? ' success' : '');
-
-  if (success) {
-    icon.innerHTML = `<polyline points="20,6 9,17 4,12"/>`;
-  } else {
-    icon.innerHTML = `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="12" y1="20" x2="12.01" y2="20"/>`;
-  }
-
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-// ─────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────
-loadData();
-renderAll();
+loadVideos();
 </script>
 </body>
 </html>
